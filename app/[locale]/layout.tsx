@@ -5,17 +5,11 @@ export function generateStaticParams() {
   return LOCALES.map(locale => ({ locale }));
 }
 
-export default function LocaleLayout({
-  children,
-  params,
-}: {
-  children: React.ReactNode;
-  params: { locale: string };
-}) {
+export default function LocaleLayout({ children, params }) {
   if (!isValidLocale(params.locale)) notFound();
 
   return (
-    <html lang={params.locale}>
+    <>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -26,6 +20,6 @@ export default function LocaleLayout({
         <link rel="icon" type="image/png" href="/favicon.png" />
       </head>
       <body>{children}</body>
-    </html>
+    </>
   );
 }

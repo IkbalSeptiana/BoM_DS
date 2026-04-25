@@ -31,14 +31,19 @@ function parseHistorySheet(sheetName) {
 export async function discoverHistorySheets() {
   try {
     const res = await fetch(SHEETS_API_URL);
-    if (!res.ok) return [];
+    if (!res.ok) {
+      console.warn('Sheets API failed:', res.status);
+      return [];
+    }
     const data = await res.json();
     const sheets = (data.sheets || []).map(s => s.properties.title);
-    return sheets
+    const history = sheets
       .map(name => parseHistorySheet(name))
       .filter(Boolean)
       .sort((a, b) => b.sort_key.localeCompare(a.sort_key));
-  } catch {
+    return history;
+  } catch (err) {
+    console.warn('discoverHistorySheets error:', err);
     return [];
   }
 }

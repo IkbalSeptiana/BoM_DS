@@ -115,5 +115,5 @@ export default {
   language: '语言',
 
   // Footer
-  footer: 'NOX - 用爱制作',
+  footer: '用爱制作',
 };

@@ -99,5 +99,5 @@ export default {
   backToCurrent: '戻る',
 
   language: '言語',
-  footer: 'NOX - 愛を込めて'
+  footer: '愛を込めて'
 };

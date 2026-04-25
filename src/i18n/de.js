@@ -115,5 +115,5 @@ export default {
   language: 'Sprache',
 
   // Footer
-  footer: 'NOX - mit Liebe gemacht',
+  footer: 'mit Liebe gemacht',
 };

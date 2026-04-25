@@ -115,5 +115,5 @@ export default {
   language: 'Ngôn ngữ',
 
   // Footer
-  footer: 'NOX - tạo bằng tình yêu',
+  footer: 'tạo bằng tình yêu',
 };

@@ -115,5 +115,5 @@ export default {
   language: 'Language',
 
   // Footer
-  footer: 'NOX - made with love',
+  footer: 'made with love',
 };

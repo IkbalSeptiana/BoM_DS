@@ -115,5 +115,5 @@ export default {
   language: 'Bahasa',
 
   // Footer
-  footer: 'NOX - dibuat dengan cinta',
+  footer: 'dibuat dengan cinta',
 };

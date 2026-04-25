@@ -2,7 +2,7 @@ export default {
   // Header
   liveTracking: 'Seguimiento en Vivo',
   siteTitle: 'BOM District Showdown',
-  subtitle: 'Registro de Jugadores y Estado de Compromiso de Packs',
+  subtitle: 'Registro de jugadores y estado de compromiso de packs',
 
   // Stats
   total: 'Total',
@@ -11,7 +11,7 @@ export default {
   sponsored: 'Patrocinado',
   failed: 'Fallido',
   waiting: 'Esperando',
-  banList: 'Lista de Ban',
+  banList: 'Lista de Baneados',
 
   // Table headers
   colNum: '#',
@@ -41,7 +41,7 @@ export default {
   searchPlaceholder: 'Buscar nombre, ID, alianza...',
   allAlliances: 'Todas las Alianzas',
   refresh: 'Actualizar',
-  lastSync: 'ultima sincronizacion:',
+  lastSync: 'última sincronización:',
   awaitingLoad: 'esperando primera carga...',
 
   // Result count
@@ -51,13 +51,13 @@ export default {
   // Table states
   initializing: 'INICIALIZANDO FLUJO DE DATOS...',
   fetching: 'OBTENIENDO DATOS EN VIVO...',
-  fetchingBan: 'OBTENIENDO LISTA DE BAN...',
+  fetchingBan: 'OBTENIENDO LISTA DE BANEADOS...',
   noData: 'NO SE ENCONTRARON JUGADORES',
-  noBanData: 'SIN DATOS DE LISTA DE BAN',
+  noBanData: 'SIN DATOS DE LISTA DE BANEADOS',
   fetchFailed: 'ERROR AL OBTENER DATOS - VERIFIQUE CONEXION',
 
   // Ban modal
-  banTitle: 'Lista de Ban',
+  banTitle: 'Lista de Baneados',
   banColPlayer: 'Jugador',
   banColId: 'ID del Jugador',
   banColReportBy: 'Reportado Por',
@@ -68,7 +68,7 @@ export default {
   rulesTitle: 'BOM District Showdown - Reglas y Notas',
 
   // Rules content
-  rulesBasicTitle: 'Reglas Basicas',
+  rulesBasicTitle: 'Reglas Básicas',
   rule1: 'Sin drama - se respetuoso con todos',
   rule2: 'NO cambies tu nombre en el juego durante el evento para rastrear el oro y compras con precision',
   rule3: 'Estate en linea para tirar dados el viernes y fines de semana para el mejor ranking',

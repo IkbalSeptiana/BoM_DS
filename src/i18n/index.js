@@ -1,9 +1,30 @@
 import en from './en.js';
 import id from './id.js';
 import es from './es.js';
+import ru from './ru.js';
+import th from './th.js';
+import ja from './ja.js';
+import fr from './fr.js';
+import vi from './vi.js';
+import zh from './zh.js';
+import ko from './ko.js';
+import de from './de.js';
 
-const packs = { en, id, es };
-const langNames = { en: 'English', id: 'Bahasa', es: 'Espanol' };
+const packs = { en, id, es, ru, th, ja, fr, vi, zh, ko, de };
+
+const langNames = {
+  en: 'English',
+  id: 'Bahasa',
+  es: 'Español',
+  ru: 'Русский',
+  th: 'ไทย',
+  ja: '日本語',
+  fr: 'Français',
+  vi: 'Tiếng Việt',
+  zh: '中文',
+  ko: '한국어',
+  de: 'Deutsch'
+};
 
 let currentLang = localStorage.getItem('bom-lang') || 'en';
 

@@ -6,7 +6,7 @@ export default {
 
   // Stats
   total: 'Total',
-  committed: 'Terkomitmen',
+  committed: 'Terkonfirmasi',
   packs: 'Pack',
   sponsored: 'Disponsori',
   failed: 'Gagal',
@@ -24,14 +24,14 @@ export default {
   colNote: 'Catatan',
 
   // Badges
-  badgeCommitted: 'Terkomitmen',
+  badgeCommitted: 'Terkonfirmasi',
   badgeFailed: 'Gagal',
   badgeWaiting: 'Menunggu',
 
   // Filters
   filterLabel: 'Filter:',
   filterAll: 'Semua',
-  filterCommitted: 'Terkomitmen',
+  filterCommitted: 'Terkonfirmasi',
   filterSponsored: 'Disponsori',
   filterSponsoring: 'Mensponsori',
   filterFailed: 'Gagal',
@@ -42,7 +42,7 @@ export default {
   allAlliances: 'Semua Aliansi',
   refresh: 'Segarkan',
   lastSync: 'sinkronisasi terakhir:',
-  awaitingLoad: 'menunggu muat pertama...',
+  awaitingLoad: 'menunggu pemuatan awal...',
 
   // Result count
   showingOf: 'menampilkan {0} dari {1} pemain',
@@ -54,7 +54,7 @@ export default {
   fetchingBan: 'MENGAMBIL DAFTAR BAN...',
   noData: 'TIDAK ADA PEMAIN YANG COCOK',
   noBanData: 'TIDAK ADA DATA DAFTAR BAN',
-  fetchFailed: 'GAGAL MENGAMBIL DATA - PERIKSA KONEKSI',
+  fetchFailed: 'GAGAL MEMUAT DATA - PERIKSA KONEKSI',
 
   // Ban modal
   banTitle: 'Daftar Ban',

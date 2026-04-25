@@ -6,7 +6,7 @@ export const SHEET_CONFIG = {
   ban: { sheet_name: 'BanList', is_current: false, is_ban: true },
   history: [
     // Add history sheets here, e.g.:
-    // { sheet_name: 'BoM_Apr-2026', display_name: 'April 2026', is_current: false, is_ban: false },
+    { sheet_name: 'DS_11-2025 - 3P', display_name: 'November 2025', is_current: false, is_ban: false },
   ],
 };
 

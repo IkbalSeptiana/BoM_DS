@@ -8,23 +8,23 @@ export const SHEET_CONFIG = {
   ban: { sheet_name: 'BanList', is_current: false, is_ban: true },
 };
 
-const HISTORY_PATTERN = /^BoM[_\s](\w{3})-(\d{4})$/i;
-const MONTH_NAMES = {
-  jan: 'January', feb: 'February', mar: 'March', apr: 'April',
-  may: 'May', jun: 'June', jul: 'July', aug: 'August',
-  sep: 'September', oct: 'October', nov: 'November', dec: 'December',
-};
+const HISTORY_PATTERN = /^BoM_(\d{2})-(\d{4})$/i;
+const MONTH_NAMES = [
+  'January', 'February', 'March', 'April',
+  'May', 'June', 'July', 'August',
+  'September', 'October', 'November', 'December',
+];
 
 function parseHistorySheet(sheetName) {
   const m = sheetName.match(HISTORY_PATTERN);
   if (!m) return null;
-  const monthKey = m[1].toLowerCase();
+  const monthNum = parseInt(m[1], 10);
   const year = m[2];
-  const monthName = MONTH_NAMES[monthKey] || m[1];
+  if (monthNum < 1 || monthNum > 12) return null;
   return {
     sheet_name: sheetName,
-    display_name: `${monthName} ${year}`,
-    sort_key: `${year}-${String(Object.keys(MONTH_NAMES).indexOf(monthKey) + 1).padStart(2, '0')}`,
+    display_name: `${MONTH_NAMES[monthNum - 1]} ${year}`,
+    sort_key: `${year}-${String(monthNum).padStart(2, '0')}`,
   };
 }
 

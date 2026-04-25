@@ -1,5 +1,5 @@
 import { t, setLang, getLang, applyAll, getAvailableLangs } from '../i18n/index.js';
-import { SHEET_CONFIG, fetchSheetCSV } from './api.js';
+import { SHEET_CONFIG, fetchSheetCSV, discoverHistorySheets } from './api.js';
 import { parseCSV, processBanData, processMainData } from './parser.js';
 import { state } from './state.js';
 import {
@@ -168,12 +168,13 @@ function buildLangSwitcher() {
     btn.onclick = () => {
       setLang(code);
       buildLangSwitcher();
-      // Re-render everything with new language
       populateAlliances();
       applyFilters();
       updateStats();
       renderHistoryNav(fetchData, fetchHistoryData);
       document.getElementById('col-pack-title').textContent = state.isLiverActive ? t('colPacks') : t('colCommitment');
+      document.getElementById('langModal').classList.remove('open');
+      document.body.style.overflow = '';
     };
     container.appendChild(btn);
   });
@@ -209,7 +210,10 @@ export async function init() {
   // Load sheet config
   state.currentSheet = SHEET_CONFIG.current;
   state.banSheet = SHEET_CONFIG.ban;
-  state.historySheets = SHEET_CONFIG.history;
+
+  // Auto-discover history sheets from Google Sheets API
+  const historySheets = await discoverHistorySheets();
+  state.historySheets = historySheets;
   renderHistoryNav(fetchData, fetchHistoryData);
 
   fetchData(true);

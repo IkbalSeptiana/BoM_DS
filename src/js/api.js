@@ -1,3 +1,4 @@
+const SPREADSHEET_ID = import.meta.env.VITE_SPREADSHEET_ID;
 const BASE_CSV_URL = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:csv`;
 
 export const SHEET_CONFIG = {

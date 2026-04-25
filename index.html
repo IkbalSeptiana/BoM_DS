@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BoM DS Live Tracking</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/css/style.css">
+</head>
+<body>
+
+<!-- Rules Button -->
+<button class="rules-btn" onclick="toggleRules()">
+    <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+    </svg>
+    <span data-i18n="rulesBtn">Event Rules</span>
+</button>
+
+<!-- Language Button -->
+<button class="lang-btn" onclick="document.getElementById('langModal').classList.toggle('open'); document.body.style.overflow = document.getElementById('langModal').classList.contains('open') ? 'hidden' : '';">
+    <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+    </svg>
+    <span data-i18n="language">Language</span>
+</button>
+
+<!-- Language Modal -->
+<div class="modal-overlay" id="langModal" onclick="if(event.target===this){this.classList.remove('open');document.body.style.overflow='';}">
+    <div class="modal-box" style="max-width:320px">
+        <div class="corner c-tl"></div><div class="corner c-tr"></div>
+        <div class="corner c-bl"></div><div class="corner c-br"></div>
+        <div class="modal-scroll" style="padding:20px 18px">
+            <button class="modal-close" onclick="document.getElementById('langModal').classList.remove('open');document.body.style.overflow='';">&#x2715;</button>
+            <div class="modal-title" data-i18n="language">Language</div>
+            <div id="lang-switcher" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Rules Modal -->
+<div class="modal-overlay" id="rulesModal" onclick="closeOutside(event)">
+    <div class="modal-box" id="rulesBox">
+        <div class="corner c-tl"></div><div class="corner c-tr"></div>
+        <div class="corner c-bl"></div><div class="corner c-br"></div>
+        <div class="modal-scroll">
+        <button class="modal-close" onclick="toggleRules()">&#x2715;</button>
+
+        <div class="modal-title" data-i18n="rulesTitle">BOM District Showdown - Rules & Notes</div>
+
+        <div class="rsec">
+            <div class="rsec-title" data-i18n="rulesBasicTitle">Basic Rules</div>
+            <div class="ritem" data-i18n="rule1">No drama - be respectful to everyone</div>
+            <div class="ritem" data-i18n="rule2">Do NOT change your in-game name during the event so we can track gold & purchases accurately</div>
+            <div class="ritem" data-i18n="rule3">Be online to roll dice on Friday and weekends for best possible ranking</div>
+        </div>
+
+        <div class="rsec" style="background:rgba(56,189,248,.04);border:1px solid rgba(56,189,248,.12);border-radius:3px;padding:12px 14px">
+            <div class="rsec-title" data-i18n="rulesHowTitle">How It Works</div>
+            <div class="ritem" data-i18n="ruleHow1">New to DS? Watch the overview below - at 1:10 it shows the exact pack you need to purchase</div>
+            <div style="position:relative;width:100%;padding-bottom:56.25%;margin-top:10px;border-radius:4px;overflow:hidden;border:1px solid rgba(56,189,248,.3)">
+                <iframe
+                    style="position:absolute;top:0;left:0;width:100%;height:100%;border:0"
+                    src="https://www.youtube.com/embed/rd7mBaGaIc4?si=wfzdMEI_vFyC42rF&start=57"
+                    title="YouTube video player"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+
+        <div class="rsec">
+            <div class="rsec-title" data-i18n="rulesCommitTitle">Your Commitment</div>
+            <div class="ritem" data-i18n="ruleCommit1">Purchase 1x merchant pack (the pack that gives 1 dice to everyone) = 1x 1999 gold</div>
+            <div class="ritem" data-i18n="ruleCommit2">All packs must be purchased before Saturday 16:00 UTC</div>
+            <div class="ritem" data-i18n="ruleCommit3">If you need to leave the alliance before the event ends, make sure your dice are at 0 - they reset on leave</div>
+            <div class="ritem" data-i18n="ruleCommit4">Don't leave after Saturday 16:00 UTC - 24h in alliance is required for gold distribution</div>
+            <div class="ritem" data-i18n="ruleCommit5">Keep your key to raid a specific alliance (announced in next mail, Sunday 12:00 UTC)</div>
+        </div>
+
+        <div class="rsec">
+            <div class="rsec-title" data-i18n="rulesOurTitle">Our Commitment</div>
+            <div class="ritem" data-i18n="ruleOur1">90% of gold donations refunded at event end - only if you complete your commitment</div>
+            <div class="ritem" data-i18n="ruleOur2">Distribute Merit Chests to top DS rankers</div>
+            <div class="ritem" data-i18n="ruleOur3">Open the gate for your farm accounts (ask in alliance chat)</div>
+            <div class="ritem" data-i18n="ruleOur4">Send reminders throughout the week - Horde schedule, alliance to raid in DS, etc.</div>
+        </div>
+
+        <div class="rsec" style="background:rgba(56,189,248,.04);border:1px solid rgba(56,189,248,.12);border-radius:3px;padding:12px 14px">
+            <div class="rsec-title" data-i18n="rulesSponsorTitle">Sponsoring Rules</div>
+            <div class="ritem" data-i18n="ruleSponsor1">You must complete your purchase pack for sponsoring someone, please let us know who you are sponsoring.</div>
+            <div class="ritem" data-i18n="ruleSponsor2">Sponsors must buy extra pack to cover the player they sponsoring - e.g. sponsoring 2 people = buying 3 packs total</div>
+            <div class="ritem" data-i18n="ruleSponsor3">Sponsored players show Sponsored status; the sponsor's pack count reflects their total purchases</div>
+            <div class="ritem" data-i18n="ruleSponsor4">Sponsorship notes are visible in the Note column of the list</div>
+        </div>
+
+        <p style="text-align:center;font-family:'Rajdhani',sans-serif;font-size:.78rem;color:var(--dim);margin-top:16px">
+            <span data-i18n="rulesQuestions">Questions? Ask R4 or especially:</span>
+            <span style="color:#38bdf8;font-weight:700">Sarci</span> &middot;
+            <span style="color:#38bdf8;font-weight:700">BoMNOX</span> &middot;
+            <span style="color:#38bdf8;font-weight:700">Amanda</span> &middot;
+            <span style="color:#38bdf8;font-weight:700">MissCake</span>
+        </p>
+        <p style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--muted);margin-top:8px" data-i18n="rulesFooter">Have fun, have a laugh, and thank you for joining</p>
+        </div>
+    </div>
+</div>
+
+<!-- Ban List Modal -->
+<div class="modal-overlay" id="banModal" onclick="closeBanOutside(event)">
+    <div class="modal-box" id="banBox" style="max-width:800px;">
+        <div class="corner c-tl"></div><div class="corner c-tr"></div>
+        <div class="corner c-bl"></div><div class="corner c-br"></div>
+        <div class="modal-scroll">
+            <button class="modal-close" onclick="toggleBanModal()">&#x2715;</button>
+            <div class="modal-title" style="color:var(--red)" data-i18n="banTitle">Ban List</div>
+            <div style="overflow-x:auto">
+                <table class="main-table">
+                    <thead>
+                        <tr>
+                            <th style="width:46px">#</th>
+                            <th style="text-align:left" data-i18n="banColPlayer">Player</th>
+                            <th style="text-align:left" data-i18n="banColId">Player ID</th>
+                            <th style="text-align:left" data-i18n="banColReportBy">Report By</th>
+                            <th style="text-align:left" data-i18n="banColNote">Note</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ban-tbody">
+                        <tr class="nodata"><td colspan="5">FETCHING BAN LIST...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main -->
+<div style="position:relative;z-index:1;max-width:1140px;margin:0 auto;padding:24px 14px;flex:1;width:100%">
+
+    <!-- Header -->
+    <div style="text-align:center;margin-bottom:22px;padding-top:6px">
+        <div style="display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:5px">
+            <div class="live-dot"></div>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.25em;color:var(--green);text-transform:uppercase" data-i18n="liveTracking">Live Tracking</span>
+        </div>
+        <h1 class="site-title" data-i18n="siteTitle">BOM District Showdown</h1>
+        <p class="subtitle" style="margin-top:5px" data-i18n="subtitle">Player Registration & Pack Commitment Status</p>
+    </div>
+
+    <!-- Stat Cards -->
+    <div class="stat-grid" style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:16px">
+        <div class="stat-card sc-total">
+            <div class="stat-num" id="s-total" style="color:var(--cyan)">—</div>
+            <div class="stat-lbl" data-i18n="total">Total</div>
+        </div>
+        <div class="stat-card sc-commit">
+            <div class="stat-num" id="s-committed" style="color:var(--green)">—</div>
+            <div class="stat-lbl" data-i18n="committed">Committed</div>
+        </div>
+        <div class="stat-card sc-commit">
+            <div class="stat-num" id="s-pack" style="color:var(--green)">—</div>
+            <div class="stat-lbl" data-i18n="packs">Packs</div>
+        </div>
+        <div class="stat-card sc-sponsor">
+            <div class="stat-num" id="s-sponsored" style="color:var(--cyan)">—</div>
+            <div class="stat-lbl" data-i18n="sponsored">Sponsored</div>
+        </div>
+        <div class="stat-card sc-failed">
+            <div class="stat-num" id="s-failed" style="color:var(--red)">—</div>
+            <div class="stat-lbl" data-i18n="failed">Failed</div>
+        </div>
+        <div class="stat-card sc-pending">
+            <div class="stat-num" id="s-waiting" style="color:var(--amber)">—</div>
+            <div class="stat-lbl" data-i18n="waiting">Waiting</div>
+        </div>
+        <div class="stat-card sc-banned" style="cursor:pointer" onclick="toggleBanModal()" data-i18n-title="banList" title="Ban List">
+            <div class="stat-num" id="s-banned" style="color:var(--red)">—</div>
+            <div class="stat-lbl" data-i18n="banList">Ban List</div>
+        </div>
+    </div>
+
+    <!-- History Navigation -->
+    <div id="history-title" class="history-title"></div>
+    <div style="display:flex;gap:5px;flex-wrap:wrap;align-items:center;margin-bottom:8px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:.58rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;margin-right:4px" data-i18n="history">History:</span>
+        <div id="history-nav" style="display:flex;gap:5px;flex-wrap:wrap"></div>
+    </div>
+
+    <!-- Controls -->
+    <div style="background:var(--bg-card);border:1px solid var(--border-dim);border-radius:4px;padding:12px 14px;margin-bottom:8px;display:flex;flex-direction:column;gap:10px">
+
+        <div style="display:flex;gap:9px;align-items:center;flex-wrap:wrap">
+            <div style="position:relative;flex:1;min-width:180px">
+                <svg style="position:absolute;left:9px;top:50%;transform:translateY(-50%);width:13px;height:13px;color:var(--dim);pointer-events:none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/>
+                </svg>
+                <input type="text" id="searchInput" oninput="applyFilters()" class="s-input" style="width:100%" data-i18n="searchPlaceholder" placeholder="Search name, ID, alliance...">
+            </div>
+            <select id="allianceFilter" onchange="applyFilters()" class="s-select">
+                <option value="" data-i18n="allAlliances">All Alliances</option>
+            </select>
+            <div style="display:flex;align-items:center;gap:9px;margin-left:auto">
+                <svg class="cring" viewBox="0 0 26 26">
+                    <circle cx="13" cy="13" r="10" stroke="rgba(56,189,248,.13)" stroke-width="3" fill="none"/>
+                    <circle id="cring-fill" cx="13" cy="13" r="10" stroke="var(--cyan)" stroke-width="3" fill="none" stroke-dasharray="62.83" stroke-dashoffset="0" stroke-linecap="round"/>
+                </svg>
+                <span id="cdown-txt" style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--dim)">—s</span>
+                <button onclick="fetchData(true)" class="rfbtn">
+                    <svg id="rf-icon" style="width:12px;height:12px" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                    </svg>
+                    <span data-i18n="refresh">Refresh</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Filter tabs -->
+        <div style="display:flex;gap:5px;flex-wrap:wrap;align-items:center">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:.58rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;margin-right:4px" data-i18n="filterLabel">Filter:</span>
+            <button class="ftab on" data-filter="all" onclick="setFilter('all',this)" data-i18n="filterAll">All</button>
+            <button class="ftab" data-filter="committed" onclick="setFilter('committed',this)" data-i18n="filterCommitted">Committed</button>
+            <button class="ftab" data-filter="sponsored" onclick="setFilter('sponsored',this)" data-i18n="filterSponsored">Sponsored</button>
+            <button class="ftab" data-filter="sponsoring" onclick="setFilter('sponsoring',this)" data-i18n="filterSponsoring">Sponsoring</button>
+            <button class="ftab" data-filter="failed" onclick="setFilter('failed',this)" data-i18n="filterFailed">Failed</button>
+            <button class="ftab" data-filter="waiting" onclick="setFilter('waiting',this)" data-i18n="filterWaiting">Waiting</button>
+        </div>
+
+        <div id="last-sync" style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted);letter-spacing:.05em" data-i18n="awaitingLoad">awaiting first load...</div>
+    </div>
+
+    <!-- Result count -->
+    <div style="text-align:right;margin-bottom:5px;padding:0 2px">
+        <span id="result-count" style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted)"></span>
+    </div>
+
+    <!-- Table -->
+    <div class="hud" style="overflow:hidden;margin-bottom:28px">
+        <div class="corner c-tl"></div><div class="corner c-tr"></div>
+        <div class="corner c-bl"></div><div class="corner c-br"></div>
+        <div style="overflow-x:auto">
+            <table class="main-table">
+                <thead>
+                    <tr>
+                        <th style="width:46px" data-i18n="colNum">#</th>
+                        <th class="sortable" onclick="handleSort('Player')">Player <span id="si-Player" class="si">&#x21D5;</span></th>
+                        <th class="sortable hide-sm" onclick="handleSort('Player ID')">ID <span id="si-Player ID" class="si">&#x21D5;</span></th>
+                        <th class="sortable" onclick="handleSort('Alliance')">Alliance <span id="si-Alliance" class="si">&#x21D5;</span></th>
+                        <th class="sortable" onclick="handleSort('_displayPack')" style="text-align:center"><span id="col-pack-title">Commitment</span> <span id="si-_displayPack" class="si">&#x21D5;</span></th>
+                        <th id="th-status" style="text-align:center; display:none" data-i18n="colStatus">Final Status</th>
+                        <th data-i18n="colNote">Note</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                    <tr class="nodata"><td colspan="7">INITIALIZING DATA STREAM...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer style="border-top:1px solid rgba(56,189,248,.06);padding:16px;text-align:center;position:relative;z-index:1">
+    <p style="font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--muted);letter-spacing:.1em">
+        &copy; 2026 <span style="color:var(--dim);font-weight:600">NOX</span> &middot; <span data-i18n="footer">made with love</span>
+    </p>
+    <button id="backToTop" class="btt-btn" onclick="scrollToTop()" title="Back to Top">
+        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+        </svg>
+    </button>
+</footer>
+
+<script type="module" src="/src/js/main.js"></script>
+</body>
+</html>

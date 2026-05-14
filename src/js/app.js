@@ -14,12 +14,17 @@ function toggleRules() {
   document.body.style.overflow = isOpen ? 'hidden' : '';
   
   if (!isOpen) {
-    // Cari elemen lite-youtube
-    const ytPlayer = modal.querySelector('lite-youtube');
-    if (ytPlayer) {
-      // Kloning elemen tersebut untuk me-reset state-nya (mematikan video/audio)
-      const clone = ytPlayer.cloneNode(true);
-      ytPlayer.parentNode.replaceChild(clone, ytPlayer);
+    // Cari pembungkus video
+    const ytWrapper = document.getElementById('yt-wrapper');
+    if (ytWrapper) {
+      // Hapus video lama dan masukkan ulang HTML lite-youtube yang baru
+      ytWrapper.innerHTML = `
+        <lite-youtube 
+            videoid="rd7mBaGaIc4" 
+            params="start=57&rel=0&modestbranding=1"
+            playlabel="Play Video">
+        </lite-youtube>
+      `;
     }
   }
 }

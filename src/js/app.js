@@ -12,9 +12,15 @@ function toggleRules() {
   const modal = document.getElementById('rulesModal');
   const isOpen = modal.classList.toggle('open');
   document.body.style.overflow = isOpen ? 'hidden' : '';
+  
   if (!isOpen) {
-    const iframe = modal.querySelector('iframe');
-    if (iframe) { iframe.src = iframe.src; }
+    // Cari elemen lite-youtube
+    const ytPlayer = modal.querySelector('lite-youtube');
+    if (ytPlayer) {
+      // Kloning elemen tersebut untuk me-reset state-nya (mematikan video/audio)
+      const clone = ytPlayer.cloneNode(true);
+      ytPlayer.parentNode.replaceChild(clone, ytPlayer);
+    }
   }
 }
 

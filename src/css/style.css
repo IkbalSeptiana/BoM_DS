@@ -1,3 +1,62 @@
+/* orbitron-700 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Orbitron';
+  font-style: normal;
+  font-weight: 700;
+  src: url('/fonts/orbitron-v35-latin-700.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* orbitron-900 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Orbitron';
+  font-style: normal;
+  font-weight: 900;
+  src: url('/fonts/orbitron-v35-latin-900.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* rajdhani-regular - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Rajdhani';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/rajdhani-v17-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* rajdhani-600 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Rajdhani';
+  font-style: normal;
+  font-weight: 600;
+  src: url('/fonts/rajdhani-v17-latin-600.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* rajdhani-700 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Rajdhani';
+  font-style: normal;
+  font-weight: 700;
+  src: url('/fonts/rajdhani-v17-latin-700.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* jetbrains-mono-regular - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/jetbrains-mono-v24-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* jetbrains-mono-500 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  src: url('/fonts/jetbrains-mono-v24-latin-500.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
 :root {
     --bg-deep:    #060a12;
     --bg-card:    #0b1120;
@@ -150,9 +209,21 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 
 @media (max-width: 599px) {
     .hide-sm { display: none }
-    .stat-grid { grid-template-columns: repeat(2, 1fr) }
+    
+    /* Ganti repeat menjadi eksplisit dan kunci lebarnya */
+    .stat-grid { 
+        grid-template-columns: 1fr 1fr; 
+        width: 100%;
+    }
+    
+    /* Kunci card agar tidak melar di Safari */
+    .stat-card {
+        min-width: 0; 
+        overflow: hidden;
+    }
+    
     .stat-num { font-size: 1.6rem }
-    .lang-grid { grid-template-columns: repeat(3, 1fr) }
+    .lang-grid { grid-template-columns: 1fr 1fr 1fr } /* Sama, ganti repeat */
     .rules-btn { top: 10px; right: 10px; padding: 5px 10px; font-size: .65rem }
     .lang-btn { top: 10px; left: 10px; padding: 5px 10px; font-size: .65rem }
     .btt-btn { bottom: 16px; right: 16px; width: 38px; height: 38px }

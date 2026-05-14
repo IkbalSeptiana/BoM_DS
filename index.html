@@ -118,7 +118,7 @@
         <div class="modal-scroll">
             <button class="modal-close" onclick="toggleBanModal()">&#x2715;</button>
             <div class="modal-title" style="color:var(--red)" data-i18n="banTitle">Ban List</div>
-            <div style="overflow-x:auto">
+            <div style="overflow-x:auto; overflow-y:auto; max-height: 70vh;">
                 <table class="main-table">
                     <thead>
                         <tr>
@@ -198,7 +198,7 @@
                 <svg style="position:absolute;left:9px;top:50%;transform:translateY(-50%);width:13px;height:13px;color:var(--dim);pointer-events:none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/>
                 </svg>
-                <input type="text" id="searchInput" oninput="applyFilters()" class="s-input" style="width:100%" data-i18n="searchPlaceholder" placeholder="Search name, ID, alliance...">
+                <input type="text" id="searchInput" oninput="handleSearchInput()" class="s-input" style="width:100%" data-i18n="searchPlaceholder" placeholder="Search name, ID, alliance...">
             </div>
             <select id="allianceFilter" onchange="applyFilters()" class="s-select" aria-label="Filter by Alliance">
                 <option value="" data-i18n="allAlliances">All Alliances</option>
@@ -241,7 +241,7 @@
     <div class="hud" style="overflow:hidden;margin-bottom:28px;min-height:600px;">
         <div class="corner c-tl"></div><div class="corner c-tr"></div>
         <div class="corner c-bl"></div><div class="corner c-br"></div>
-        <div style="overflow-x:auto">
+        <div style="overflow-x:auto; overflow-y:auto; max-height: 100vh;">
             <table class="main-table">
                 <thead>
                     <tr>

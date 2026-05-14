@@ -29,6 +29,14 @@ function toggleRules() {
   }
 }
 
+let searchTimeout;
+function handleSearchInput() {
+  clearTimeout(searchTimeout);
+  searchTimeout = setTimeout(() => {
+    applyFilters();
+  }, 500); // Tunggu 300ms setelah ketikan terakhir
+}
+
 function toggleBanModal() {
   const modal = document.getElementById('banModal');
   const isOpen = modal.classList.toggle('open');
@@ -211,6 +219,7 @@ export async function init() {
   window.setFilter = setFilter;
   window.handleSort = handleSort;
   window.fetchData = fetchData;
+  window.handleSearchInput = handleSearchInput;
   window.scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   // Apply language

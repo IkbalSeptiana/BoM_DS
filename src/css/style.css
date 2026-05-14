@@ -152,7 +152,21 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 
 /* table */
 .main-table{width:100%;border-collapse:collapse}
-.main-table thead th{font-family:'Orbitron',monospace;font-size:.64rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);padding:13px 14px;background:rgba(11,17,32,.9);border-bottom:1px solid var(--border-dim);white-space:nowrap}
+.main-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: #0b1120; /* Harus solid agar teks di bawahnya tertutup */
+    font-family: 'Orbitron', monospace;
+    font-size: .64rem;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--dim);
+    padding: 13px 14px;
+    border-bottom: 1px solid var(--border-dim);
+    white-space: nowrap;
+}
 .main-table thead th.sortable{cursor:pointer;transition:color .2s}
 .main-table thead th.sortable:hover{color:var(--cyan)}
 .main-table tbody tr{border-bottom:1px solid rgba(56,189,248,.055);transition:background .15s}

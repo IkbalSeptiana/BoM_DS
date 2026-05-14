@@ -1,7 +1,4 @@
-const SPREADSHEET_ID = import.meta.env.VITE_SPREADSHEET_ID;
-const GOOGLE_API_KEY = import.meta.env.VITE_GOOGLE_API_KEY;
-const BASE_CSV_URL = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:csv`;
-const SHEETS_API_URL = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}?key=${GOOGLE_API_KEY}&fields=sheets.properties`;
+// PERHATIKAN: Variabel SPREADSHEET_ID dan GOOGLE_API_KEY sudah dihapus sepenuhnya dari sini!
 
 export const SHEET_CONFIG = {
   current: { sheet_name: 'BoM1dice', is_current: true, is_ban: false },
@@ -30,7 +27,8 @@ function parseHistorySheet(sheetName) {
 
 export async function discoverHistorySheets() {
   try {
-    const res = await fetch(SHEETS_API_URL);
+    // Memanggil Cloudflare Function lokal, BUKAN Google langsung
+    const res = await fetch('/api/history'); 
     if (!res.ok) {
       console.warn('Sheets API failed:', res.status);
       return [];
@@ -49,7 +47,8 @@ export async function discoverHistorySheets() {
 }
 
 export async function fetchSheetCSV(sheetName) {
-  const url = `${BASE_CSV_URL}&sheet=${encodeURIComponent(sheetName)}&t=${Date.now()}`;
+  // Memanggil Cloudflare Function lokal, BUKAN Google langsung
+  const url = `/api/csv?sheet=${encodeURIComponent(sheetName)}`;
   const res = await fetch(url);
   if (!res.ok) throw new Error(`Failed to fetch sheet: ${sheetName}`);
   return res.text();

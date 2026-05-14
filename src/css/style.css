@@ -11,7 +11,7 @@
     --red:   #f87171;
     --text:  #e2e8f0;
     --dim:   #8ca8bf;
-    --muted: #4e6477;
+    --muted: #71889c;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg-deep);color:var(--text);font-family:'Rajdhani',sans-serif;min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden}

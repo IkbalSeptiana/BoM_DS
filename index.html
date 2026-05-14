@@ -66,15 +66,12 @@
             <div class="rsec-title" data-i18n="rulesHowTitle">How It Works</div>
             <div class="ritem" data-i18n="ruleHow1">New to DS? Watch the overview below - at 1:10 it shows the exact pack you need to purchase</div>
             <div style="position:relative;width:100%;padding-bottom:56.25%;margin-top:10px;border-radius:4px;overflow:hidden;border:1px solid rgba(56,189,248,.3)">
-                <iframe
-					style="position:absolute;top:0;left:0;width:100%;height:100%;border:0"
-					src="https://www.youtube-nocookie.com/embed/rd7mBaGaIc4?start=57&rel=0&modestbranding=1"
-					title="YouTube video player"
-					loading="lazy"
-					referrerpolicy="strict-origin-when-cross-origin"
-					sandbox="allow-scripts allow-same-origin allow-presentation"
-					allowfullscreen>
-				</iframe>
+                <lite-youtube 
+                    videoid="rd7mBaGaIc4" 
+                    params="start=57&rel=0&modestbranding=1"
+                    playlabel="Play Video"
+                    style="max-width: 100%; border-radius: 4px;">
+                </lite-youtube>
             </div>
         </div>
 
@@ -144,7 +141,7 @@
 </div>
 
 <!-- Main -->
-<div style="position:relative;z-index:1;max-width:1140px;margin:0 auto;padding:24px 14px;flex:1;width:100%">
+<main style="position:relative;z-index:1;max-width:1140px;margin:0 auto;padding:24px 14px;flex:1;width:100%">
 
     <!-- Header -->
     <div style="text-align:center;margin-bottom:22px;padding-top:6px">
@@ -205,7 +202,7 @@
                 </svg>
                 <input type="text" id="searchInput" oninput="applyFilters()" class="s-input" style="width:100%" data-i18n="searchPlaceholder" placeholder="Search name, ID, alliance...">
             </div>
-            <select id="allianceFilter" onchange="applyFilters()" class="s-select">
+            <select id="allianceFilter" onchange="applyFilters()" class="s-select" aria-label="Filter by Alliance">
                 <option value="" data-i18n="allAlliances">All Alliances</option>
             </select>
             <div style="display:flex;align-items:center;gap:9px;margin-left:auto">
@@ -243,7 +240,7 @@
     </div>
 
     <!-- Table -->
-    <div class="hud" style="overflow:hidden;margin-bottom:28px">
+    <div class="hud" style="overflow:hidden;margin-bottom:28px;min-height:600px;">
         <div class="corner c-tl"></div><div class="corner c-tr"></div>
         <div class="corner c-bl"></div><div class="corner c-br"></div>
         <div style="overflow-x:auto">
@@ -265,7 +262,7 @@
             </table>
         </div>
     </div>
-</div>
+</main>
 
 <!-- Footer -->
 <footer style="border-top:1px solid rgba(56,189,248,.06);padding:16px;text-align:center;position:relative;z-index:1">

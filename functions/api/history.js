@@ -5,7 +5,13 @@ export async function onRequestGet(context) {
   const googleUrl = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}?key=${GOOGLE_API_KEY}&fields=sheets.properties`;
 
   try {
-    const response = await fetch(googleUrl);
+    // Tambahkan header Referer saat melakukan fetch ke Google
+    const response = await fetch(googleUrl, {
+      headers: {
+        'Referer': 'https://bom-ds.top/'
+      }
+    });
+    
     const jsonData = await response.text();
 
     return new Response(jsonData, {

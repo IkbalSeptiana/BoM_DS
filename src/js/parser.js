@@ -62,13 +62,18 @@ export function processMainData(mainRows) {
     if (liverData !== '') isLiverActive = true;
 
     const comment = getCol(r, 'Comments').trim();
-    if (comment.toLowerCase().includes('cover')) {
-      const sponsorName = comment.replace(/cover/ig, '').trim();
+    
+    // Gunakan Regex untuk mendeteksi kata "cover" ATAU "sponsor" (case-insensitive)
+    if (/(cover|sponsor)/i.test(comment)) {
+      
+      // Hapus kata "cover" ATAU "sponsor" untuk menyisakan nama pemainnya saja
+      const sponsorName = comment.replace(/(cover|sponsor)/ig, '').trim();
+      
       if (sponsorName) {
         const spLower = sponsorName.toLowerCase();
         if (!sponsoringMap[spLower]) sponsoringMap[spLower] = [];
         sponsoringMap[spLower].push(n);
-        sponsoredByMap[n.toLowerCase()] = sponsorName;
+        sponsoredByMap[nLower] = sponsorName;
       }
     }
   });

@@ -63,17 +63,17 @@ export function processMainData(mainRows) {
 
     const comment = getCol(r, 'Comments').trim();
     
-    // Gunakan Regex untuk mendeteksi kata "cover" ATAU "sponsor" (case-insensitive)
     if (/(cover|sponsor)/i.test(comment)) {
       
-      // Hapus kata "cover" ATAU "sponsor" untuk menyisakan nama pemainnya saja
       const sponsorName = comment.replace(/(cover|sponsor)/ig, '').trim();
       
       if (sponsorName) {
         const spLower = sponsorName.toLowerCase();
         if (!sponsoringMap[spLower]) sponsoringMap[spLower] = [];
         sponsoringMap[spLower].push(n);
-        sponsoredByMap[nLower] = sponsorName;
+        
+        // PERBAIKANNYA DI BARIS INI (Ganti nLower menjadi n.toLowerCase())
+        sponsoredByMap[n.toLowerCase()] = sponsorName;
       }
     }
   });

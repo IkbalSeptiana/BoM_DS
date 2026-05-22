@@ -13,7 +13,12 @@ export async function onRequestGet(context) {
     });
     
     if (!response.ok) {
-      return new Response(JSON.stringify({ error: "Gagal mengambil data" }), { status: response.status });
+      // Ambil teks error asli dari Google untuk debugging
+      const errorText = await response.text();
+      return new Response(JSON.stringify({ 
+        error: "Gagal mengambil data", 
+        google_error: errorText 
+      }), { status: response.status });
     }
 
     const data = await response.json();

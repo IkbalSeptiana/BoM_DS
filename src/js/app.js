@@ -148,6 +148,9 @@ async function fetchData(spinner = false) {
       timeString = time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     }
 
+    // SIMPAN KE STATE (Baris Baru)
+    state.lastSyncTime = timeString; 
+    
     // Ubah teks menggunakan terjemahan i18n
     document.getElementById('last-sync').textContent = t('lastSync') + ' ' + timeString;
     // --- AKHIR KODE BARU LAST MODIFIED ---
@@ -208,6 +211,9 @@ function buildLangSwitcher() {
       updateStats();
       renderHistoryNav(fetchData, fetchHistoryData);
       document.getElementById('col-pack-title').textContent = state.isLiverActive ? t('colPacks') : t('colCommitment');
+      if (state.lastSyncTime) {
+        document.getElementById('last-sync').textContent = t('lastSync') + ' ' + state.lastSyncTime;
+      }
       document.getElementById('langModal').classList.remove('open');
       document.body.style.overflow = '';
     };

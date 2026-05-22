@@ -1,4 +1,4 @@
-import { t } from '../i18n/index.js';
+import { t, getLang } from '../i18n/index.js';
 import { state, CIRC, AUTO_S } from './state.js';
 
 export function esc(s) {
@@ -151,35 +151,67 @@ function tickCD() {
   document.getElementById('cdown-txt').textContent = state.cdLeft + 's';
 }
 
-export function renderHistoryNav(onCurrent, onHistory) {
-  const nav = document.getElementById('history-nav');
-  if (!nav) return;
-  nav.innerHTML = '';
+export function renderHistoryNav(fetchMain, fetchHistory) {
+  const container = document.getElementById('history-nav');
+  if (!container || !state.historySheets || state.historySheets.length === 0) return;
 
-  // Current event button
-  const curBtn = document.createElement('button');
-  curBtn.className = `ftab ${!state.viewingHistory ? 'on' : ''}`;
-  curBtn.textContent = t('currentEvent');
-  curBtn.onclick = () => {
-    state.viewingHistory = null;
-    document.getElementById('history-title').style.display = 'none';
-    renderHistoryNav(onCurrent, onHistory);
-    onCurrent(true);
+  container.innerHTML = '';
+
+  const { historySheets, currentSheet } = state;
+
+  // Tombol Main Sheet (Current Month)
+  const isMain = !state.isHistoryMode;
+  const mainBtn = document.createElement('button');
+  mainBtn.className = `ftab ${isMain ? 'on' : ''}`;
+  mainBtn.textContent = t('currentMonth');
+  mainBtn.onclick = () => {
+    state.isHistoryMode = false;
+    state.activeFilter = 'all';
+    fetchMain(true);
+    renderHistoryNav(fetchMain, fetchHistory);
   };
-  nav.appendChild(curBtn);
+  container.appendChild(mainBtn);
 
-  // History buttons
-  state.historySheets.forEach(sheet => {
+  // -- FUNGSI HELPER UNTUK FORMAT TANGGAL --
+  function formatMonthYear(sheetName) {
+    // Memecah "03-2026" menjadi "03" dan "2026"
+    const parts = sheetName.split('-');
+    if (parts.length === 2) {
+      const month = parseInt(parts[0], 10) - 1; // 0-based index di JS
+      const year = parseInt(parts[1], 10);
+      
+      // Mencegah NaN jika formatnya ternyata bukan angka
+      if (!isNaN(month) && !isNaN(year)) {
+        const dateObj = new Date(year, month);
+        // Menggunakan bahasa yang sedang aktif di website
+        return new Intl.DateTimeFormat(getLang(), { 
+          month: 'short', // Menggunakan 'short' agar pas di tombol (Mar 2026 / 2026年3月)
+          year: 'numeric' 
+        }).format(dateObj);
+      }
+    }
+    return sheetName; // Fallback jika format gagal
+  }
+
+  // Tombol History
+  historySheets.forEach(sheetName => {
+    // Hindari sheet ban atau sheet utama
+    if (sheetName.toLowerCase() === 'banlist' || sheetName === currentSheet.sheet_name) return;
+
+    const isActive = state.isHistoryMode && state.activeHistorySheet === sheetName;
     const btn = document.createElement('button');
-    btn.className = `ftab ${state.viewingHistory === sheet.sheet_name ? 'on' : ''}`;
-    btn.textContent = sheet.display_name || sheet.event_date || sheet.sheet_name;
+    btn.className = `ftab ${isActive ? 'on' : ''}`;
+    
+    // -- TERAPKAN FORMAT BARU --
+    btn.textContent = formatMonthYear(sheetName);
+
     btn.onclick = () => {
-      state.viewingHistory = sheet.sheet_name;
-      document.getElementById('history-title').style.display = 'block';
-      document.getElementById('history-title').textContent = sheet.display_name || sheet.event_date;
-      renderHistoryNav(onCurrent, onHistory);
-      onHistory(sheet.sheet_name);
+      state.isHistoryMode = true;
+      state.activeHistorySheet = sheetName;
+      state.activeFilter = 'all';
+      fetchHistory(sheetName);
+      renderHistoryNav(fetchMain, fetchHistory);
     };
-    nav.appendChild(btn);
+    container.appendChild(btn);
   });
 }

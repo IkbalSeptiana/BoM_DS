@@ -53,3 +53,15 @@ export async function fetchSheetCSV(sheetName) {
   if (!res.ok) throw new Error(`Failed to fetch sheet: ${sheetName}`);
   return res.text();
 }
+
+export async function fetchSpreadsheetModifiedTime() {
+  try {
+    const res = await fetch('/api/modified');
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data.modifiedTime; // Menghasilkan format ISO string, misal: "2026-05-22T00:01:00.000Z"
+  } catch (err) {
+    console.error('Gagal mengambil waktu modifikasi spreadsheet:', err);
+    return null;
+  }
+}

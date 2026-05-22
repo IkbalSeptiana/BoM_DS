@@ -1,5 +1,5 @@
 import { t, setLang, getLang, applyAll, getAvailableLangs } from '../i18n/index.js';
-import { SHEET_CONFIG, fetchSheetCSV, discoverHistorySheets } from './api.js';
+import { SHEET_CONFIG, fetchSheetCSV, discoverHistorySheets, fetchLastModified } from './api.js';
 import { parseCSV, processBanData, processMainData } from './parser.js';
 import { state } from './state.js';
 import {
@@ -134,8 +134,24 @@ async function fetchData(spinner = false) {
     applyFilters();
     updateStats();
 
-    const time = new Date();
-    document.getElementById('last-sync').textContent = t('lastSync') + ' ' + time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    // --- AWAL KODE BARU LAST MODIFIED ---
+    const modifiedTimeIso = await fetchLastModified();
+    let timeString = '';
+    
+    if (modifiedTimeIso) {
+      // Jika berhasil dapat waktu dari server Google
+      const dateObj = new Date(modifiedTimeIso);
+      timeString = dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    } else {
+      // Jika gagal, kembali menggunakan waktu lokal komputer (fallback)
+      const time = new Date();
+      timeString = time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    }
+
+    // Ubah teks menggunakan terjemahan i18n
+    document.getElementById('last-sync').textContent = t('lastSync') + ' ' + timeString;
+    // --- AKHIR KODE BARU LAST MODIFIED ---
+
     document.getElementById('rf-icon').classList.remove('spin');
     startCountdown(fetchData);
   } catch (err) {

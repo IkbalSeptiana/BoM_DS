@@ -1,5 +1,5 @@
 import { t, setLang, getLang, applyAll, getAvailableLangs } from '../i18n/index.js';
-import { SHEET_CONFIG, fetchSheetCSV, discoverHistorySheets, fetchLastModified } from './api.js';
+import { SHEET_CONFIG, fetchSheetCSV, discoverHistorySheets } from './api.js';
 import { parseCSV, processBanData, processMainData } from './parser.js';
 import { state } from './state.js';
 import {
@@ -94,16 +94,54 @@ function handleSort(col) {
 
 function sortArr(col, asc) {
   state.displayed.sort((a, b) => {
-    const va = (a[col] || '').toString().toLowerCase();
-    const vb = (b[col] || '').toString().toLowerCase();
+    const raw_a = a[col] ?? '';
+    const raw_b = b[col] ?? '';
+    const numA = Number(raw_a);
+    const numB = Number(raw_b);
+    const isNum = !isNaN(numA) && !isNaN(numB) && raw_a !== '' && raw_b !== '';
+    if (isNum) return asc ? numA - numB : numB - numA;
+    const va = String(raw_a).toLowerCase();
+    const vb = String(raw_b).toLowerCase();
     if (va < vb) return asc ? -1 : 1;
     if (va > vb) return asc ? 1 : -1;
     return 0;
   });
 }
 
+
+// Fungsi baru untuk memformat ulang tanggal setiap kali dibutuhkan
+function updateLastSyncUI() {
+  const el = document.getElementById('last-sync');
+  if (!el) return;
+
+  if (!state.lastSyncISO) {
+    el.textContent = t('lastSync') + ' —';
+    return;
+  }
+
+  const activeLang = getLang();
+  const dateOpts = { 
+    day: '2-digit', 
+    month: 'short', 
+    year: 'numeric', 
+    hour: '2-digit', 
+    minute: '2-digit', 
+    second: '2-digit', 
+    hour12: false, 
+    calendar: 'gregory' 
+  };
+  
+  const dateObj = new Date(state.lastSyncISO);
+  const timeString = dateObj.toLocaleString(activeLang, dateOpts);
+
+  el.textContent = t('lastSync') + ' ' + timeString;
+}
+
 /* ── Data Fetching ── */
 async function fetchData(spinner = false) {
+  const syncContainer = document.getElementById('sync-container');
+  if (syncContainer) syncContainer.style.display = 'flex';
+
   if (spinner) {
     document.getElementById('rf-icon').classList.add('spin');
     document.getElementById('tbody').innerHTML = `<tr class="nodata"><td colspan="7">${t('fetching')}</td></tr>`;
@@ -124,7 +162,7 @@ async function fetchData(spinner = false) {
     state.bannedCount = bannedCount;
     renderBanTable(banMap);
 
-    const { players, isLiverActive } = processMainData(mainRes.data);
+    const { players, isLiverActive, lastModifiedISO } = processMainData(mainRes.data);
     state.allPlayers = players;
     state.isLiverActive = isLiverActive;
 
@@ -134,24 +172,21 @@ async function fetchData(spinner = false) {
     applyFilters();
     updateStats();
 
-    // --- AWAL KODE BARU LAST MODIFIED ---
-    const modifiedTimeIso = await fetchLastModified();
-    let timeString = '';
+    // --- LOGIKA WAKTU TERBARU UNTUK LIVE ---
+    state.lastSyncISO = lastModifiedISO || new Date().toISOString();
+    updateLastSyncUI();
+    const activeLang = getLang(); // Ambil bahasa yang sedang dipilih di web
+    const dateOpts = { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, calendar: 'gregory' };
     
-    if (modifiedTimeIso) {
-      // Jika berhasil dapat waktu dari server Google
-      const dateObj = new Date(modifiedTimeIso);
-      timeString = dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    let timeString = '';
+    if (lastModifiedISO) {
+      const dateObj = new Date(lastModifiedISO);
+      timeString = dateObj.toLocaleString(activeLang, dateOpts);
     } else {
-      // Jika gagal, kembali menggunakan waktu lokal komputer (fallback)
-      const time = new Date();
-      timeString = time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      timeString = '— (No Date Data)';
     }
 
-    // SIMPAN KE STATE (Baris Baru)
     state.lastSyncTime = timeString; 
-    
-    // Ubah teks menggunakan terjemahan i18n
     document.getElementById('last-sync').textContent = t('lastSync') + ' ' + timeString;
     // --- AKHIR KODE BARU LAST MODIFIED ---
 
@@ -164,13 +199,21 @@ async function fetchData(spinner = false) {
 }
 
 async function fetchHistoryData(sheetName) {
+  // Stop the live countdown while viewing history
+  clearInterval(state.cdTimer);
+  document.getElementById('cdown-txt').textContent = '—';
+  document.getElementById('cring-fill').style.strokeDashoffset = 0;
+  
+  // TAMBAHKAN BARIS INI: Sembunyikan tombol refresh & timer
+  document.getElementById('sync-container').style.display = 'none';
+
   document.getElementById('rf-icon').classList.add('spin');
   document.getElementById('tbody').innerHTML = `<tr class="nodata"><td colspan="7">${t('fetching')}</td></tr>`;
 
   try {
     const csv = await fetchSheetCSV(sheetName);
     const res = await parseCSV(csv);
-    const { players, isLiverActive } = processMainData(res.data);
+    const { players, isLiverActive, lastModifiedISO } = processMainData(res.data);
 
     state.allPlayers = players;
     state.isLiverActive = isLiverActive;
@@ -183,6 +226,23 @@ async function fetchHistoryData(sheetName) {
     populateAlliances();
     applyFilters();
     updateStats();
+
+    // --- LOGIKA WAKTU UNTUK HISTORI ---
+    state.lastSyncISO = lastModifiedISO;
+    updateLastSyncUI();
+    const activeLang = getLang(); // Ambil bahasa yang sedang dipilih di web
+    const dateOpts = { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, calendar: 'gregory' };
+    
+    let timeString = '';
+    if (lastModifiedISO) {
+      const dateObj = new Date(lastModifiedISO);
+      timeString = dateObj.toLocaleString(activeLang, dateOpts);
+    } else {
+      timeString = '— (No Date Data)';
+    }
+
+    state.lastSyncTime = timeString; 
+    document.getElementById('last-sync').textContent = t('lastSync') + ' ' + timeString;
 
     document.getElementById('rf-icon').classList.remove('spin');
   } catch (err) {
@@ -211,9 +271,7 @@ function buildLangSwitcher() {
       updateStats();
       renderHistoryNav(fetchData, fetchHistoryData);
       document.getElementById('col-pack-title').textContent = state.isLiverActive ? t('colPacks') : t('colCommitment');
-      if (state.lastSyncTime) {
-        document.getElementById('last-sync').textContent = t('lastSync') + ' ' + state.lastSyncTime;
-      }
+      updateLastSyncUI();
       document.getElementById('langModal').classList.remove('open');
       document.body.style.overflow = '';
     };

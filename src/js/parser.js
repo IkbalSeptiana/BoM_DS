@@ -1,4 +1,5 @@
 import Papa from 'papaparse';
+import { VERIFIER_COLS } from './api.js';
 
 export function parseCSV(csvText) {
   return new Promise((resolve, reject) => {
@@ -52,9 +53,23 @@ export function processMainData(mainRows) {
   let isLiverActive = false;
   const sponsoringMap = {};
   const sponsoredByMap = {};
+  
+  // Variabel untuk menyimpan waktu dari CSV
+  let lastModifiedISO = null;
+  // Regex untuk mencari format ISO (mengabaikan spasi atau tanda petik tunggal bawaan Sheets)
+  const isoRegex = /^\s*'?(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z)\s*$/;
 
-  // Pass 1: detect liver active & map sponsorships
+  // Pass 1: detect liver active, map sponsorships, AND extract timestamp
   mainRows.forEach(r => {
+    // Cari timestamp di setiap sel pada baris ini
+    if (!lastModifiedISO) {
+      for (const key in r) {
+        const val = String(r[key] || '');
+        const match = val.match(isoRegex);
+        if (match) lastModifiedISO = match[1];
+      }
+    }
+
     const n = getCol(r, 'Player');
     if (!n || n === 'Player' || n === 'KEEP FREE' || n.toLowerCase().includes('total player')) return;
 
@@ -62,17 +77,12 @@ export function processMainData(mainRows) {
     if (liverData !== '') isLiverActive = true;
 
     const comment = getCol(r, 'Comments').trim();
-    
     if (/(cover|sponsor)/i.test(comment)) {
-      
       const sponsorName = comment.replace(/(cover|sponsor)/ig, '').trim();
-      
       if (sponsorName) {
         const spLower = sponsorName.toLowerCase();
         if (!sponsoringMap[spLower]) sponsoringMap[spLower] = [];
         sponsoringMap[spLower].push(n);
-        
-        // PERBAIKANNYA DI BARIS INI (Ganti nLower menjadi n.toLowerCase())
         sponsoredByMap[n.toLowerCase()] = sponsorName;
       }
     }
@@ -104,7 +114,7 @@ export function processMainData(mainRows) {
       const n = getCol(r, 'Player');
       const nLower = n.toLowerCase();
 
-      const verifiers = [getCol(r, 'Nox'), getCol(r, 'Akita'), getCol(r, 'Sarci'), getCol(r, 'Amanda')].map(v => v.toLowerCase());
+      const verifiers = VERIFIER_COLS.map(v => getCol(r, v).toLowerCase());
       let isConfirmed = verifiers.includes('confirmed');
       let isFailed = verifiers.includes('failed');
 
@@ -135,5 +145,5 @@ export function processMainData(mainRows) {
       };
     });
 
-  return { players, isLiverActive };
+  return { players, isLiverActive, lastModifiedISO };
 }

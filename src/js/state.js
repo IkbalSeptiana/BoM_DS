@@ -14,4 +14,5 @@ export const state = {
   banSheet: null,
   historySheets: [],
   viewingHistory: null,
+  lastSyncTime: null,
 };

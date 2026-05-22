@@ -7,6 +7,19 @@ export const SHEET_CONFIG = {
 
 const HISTORY_PATTERN = /^BoM_(\d{2})-(\d{4})$/i;
 
+async function fetchWithTimeout(url, ms = 10000) {
+  const ctrl = new AbortController();
+  const id = setTimeout(() => ctrl.abort(), ms);
+  try {
+    const res = await fetch(url, { signal: ctrl.signal });
+    clearTimeout(id);
+    return res;
+  } catch (err) {
+    clearTimeout(id);
+    throw err;
+  }
+}
+
 function parseHistorySheet(sheetName) {
   const m = sheetName.match(HISTORY_PATTERN);
   if (!m) return null;
@@ -42,24 +55,12 @@ export async function discoverHistorySheets() {
   }
 }
 
+// Then replace all bare fetch() calls in api.js with fetchWithTimeout()
 export async function fetchSheetCSV(sheetName) {
-  // Memanggil Cloudflare Function lokal, BUKAN Google langsung
   const url = `/api/csv?sheet=${encodeURIComponent(sheetName)}`;
-  const res = await fetch(url);
+  const res = await fetchWithTimeout(url);
   if (!res.ok) throw new Error(`Failed to fetch sheet: ${sheetName}`);
   return res.text();
 }
 
-// Tambahkan di bagian paling bawah file api.js
-
-export async function fetchLastModified() {
-  try {
-    const res = await fetch('/api/modified');
-    if (!res.ok) return null;
-    const data = await res.json();
-    return data.modifiedTime; // Contoh: "2026-05-22T00:01:00.000Z"
-  } catch (err) {
-    console.error('Gagal fetch modified time:', err);
-    return null;
-  }
-}
+export const VERIFIER_COLS = ['Nox', 'Akita', 'Sarci', 'Amanda'];

@@ -54,14 +54,16 @@ export async function fetchSheetCSV(sheetName) {
   return res.text();
 }
 
-export async function fetchSpreadsheetModifiedTime() {
+// Tambahkan di bagian paling bawah file api.js
+
+export async function fetchLastModified() {
   try {
     const res = await fetch('/api/modified');
     if (!res.ok) return null;
     const data = await res.json();
-    return data.modifiedTime; // Menghasilkan format ISO string, misal: "2026-05-22T00:01:00.000Z"
+    return data.modifiedTime; // Contoh: "2026-05-22T00:01:00.000Z"
   } catch (err) {
-    console.error('Gagal mengambil waktu modifikasi spreadsheet:', err);
+    console.error('Gagal fetch modified time:', err);
     return null;
   }
 }

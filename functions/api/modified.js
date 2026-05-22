@@ -2,18 +2,18 @@ export async function onRequestGet(context) {
   const SPREADSHEET_ID = context.env.VITE_SPREADSHEET_ID;
   const GOOGLE_API_KEY = context.env.VITE_GOOGLE_API_KEY;
 
-  // Menembak Google Drive API v3 untuk mengambil metadata waktu modifikasi file
+  // Endpoint Google Drive API untuk mengambil info waktu modifikasi file
   const googleUrl = `https://www.googleapis.com/drive/v3/files/${SPREADSHEET_ID}?fields=modifiedTime&key=${GOOGLE_API_KEY}`;
 
   try {
     const response = await fetch(googleUrl, {
       headers: {
-        'Referer': 'https://bom-ds.top/' // Sesuaikan atau biarkan jika menggunakan pengaman domain di Google Console
+        'Referer': 'https://bom-ds.top/' // Sesuaikan dengan domain kamu
       }
     });
     
     if (!response.ok) {
-      return new Response(JSON.stringify({ error: "Gagal mengambil properti dokumen" }), { status: response.status });
+      return new Response(JSON.stringify({ error: "Gagal mengambil data" }), { status: response.status });
     }
 
     const data = await response.json();
@@ -25,6 +25,6 @@ export async function onRequestGet(context) {
       }
     });
   } catch (err) {
-    return new Response(JSON.stringify({ error: "Internal Server Error" }), { status: 500 });
+    return new Response(JSON.stringify({ error: "Server Error" }), { status: 500 });
   }
 }

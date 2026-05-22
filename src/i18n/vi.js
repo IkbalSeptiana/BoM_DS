@@ -107,9 +107,13 @@ export default {
 
   // History
   history: 'Lịch sử',
+  historyMonthYear: '{0} năm {1}',
   currentEvent: 'Sự kiện hiện tại',
   noHistory: 'Chưa có lịch sử',
   backToCurrent: 'Quay lại hiện tại',
+  month_1: 'Tháng 1', month_2: 'Tháng 2', month_3: 'Tháng 3', month_4: 'Tháng 4',
+  month_5: 'Tháng 5', month_6: 'Tháng 6', month_7: 'Tháng 7', month_8: 'Tháng 8',
+  month_9: 'Tháng 9', month_10: 'Tháng 10', month_11: 'Tháng 11', month_12: 'Tháng 12',
 
   // Language
   language: 'Ngôn ngữ',

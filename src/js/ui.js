@@ -170,13 +170,20 @@ export function renderHistoryNav(onCurrent, onHistory) {
 
   // History buttons
   state.historySheets.forEach(sheet => {
+    const label = sheet.month
+      ? t('historyMonthYear', t('month_' + sheet.month), sheet.year)
+      : (sheet.display_name || sheet.event_date || sheet.sheet_name);
     const btn = document.createElement('button');
     btn.className = `ftab ${state.viewingHistory === sheet.sheet_name ? 'on' : ''}`;
-    btn.textContent = sheet.display_name || sheet.event_date || sheet.sheet_name;
+    btn.textContent = label;
+    if (state.viewingHistory === sheet.sheet_name) {
+      const titleEl = document.getElementById('history-title');
+      if (titleEl) { titleEl.style.display = 'block'; titleEl.textContent = label; }
+    }
     btn.onclick = () => {
       state.viewingHistory = sheet.sheet_name;
       document.getElementById('history-title').style.display = 'block';
-      document.getElementById('history-title').textContent = sheet.display_name || sheet.event_date;
+      document.getElementById('history-title').textContent = label;
       renderHistoryNav(onCurrent, onHistory);
       onHistory(sheet.sheet_name);
     };

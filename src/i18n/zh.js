@@ -107,9 +107,13 @@ export default {
 
   // History
   history: '历史',
+  historyMonthYear: '{1}年{0}',
   currentEvent: '当前活动',
   noHistory: '暂无历史记录',
   backToCurrent: '返回当前',
+  month_1: '1月', month_2: '2月', month_3: '3月', month_4: '4月',
+  month_5: '5月', month_6: '6月', month_7: '7月', month_8: '8月',
+  month_9: '9月', month_10: '10月', month_11: '11月', month_12: '12月',
 
   // Language
   language: '语言',

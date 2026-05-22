@@ -107,9 +107,13 @@ export default {
 
   // History
   history: 'Historial',
+  historyMonthYear: '{0} de {1}', // Atau '{0} de {1}' jika ingin lebih formal
   currentEvent: 'Evento Actual',
   noHistory: 'Sin historial disponible aun',
   backToCurrent: 'Volver al Actual',
+  month_1: 'Enero', month_2: 'Febrero', month_3: 'Marzo', month_4: 'Abril',
+  month_5: 'Mayo', month_6: 'Junio', month_7: 'Julio', month_8: 'Agosto',
+  month_9: 'Septiembre', month_10: 'Octubre', month_11: 'Noviembre', month_12: 'Diciembre',
 
   // Language
   language: 'Idioma',

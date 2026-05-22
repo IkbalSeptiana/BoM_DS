@@ -107,9 +107,13 @@ export default {
 
   // History
   history: 'История',
+  historyMonthYear: '{0} {1}',
   currentEvent: 'Текущее событие',
   noHistory: 'История пока недоступна',
   backToCurrent: 'Вернуться к текущему',
+  month_1: 'Январь', month_2: 'Февраль', month_3: 'Март', month_4: 'Апрель',
+  month_5: 'Май', month_6: 'Июнь', month_7: 'Июль', month_8: 'Август',
+  month_9: 'Сентябрь', month_10: 'Октябрь', month_11: 'Ноябрь', month_12: 'Декабрь',
 
   // Language
   language: 'Язык',

@@ -107,9 +107,13 @@ export default {
 
   // History
   history: 'Verlauf',
+  historyMonthYear: '{0} {1}',
   currentEvent: 'Aktuelles Event',
   noHistory: 'Noch kein Verlauf verfügbar',
   backToCurrent: 'Zurück zum Aktuellen',
+  month_1: 'Januar', month_2: 'Februar', month_3: 'März', month_4: 'April',
+  month_5: 'Mai', month_6: 'Juni', month_7: 'Juli', month_8: 'August',
+  month_9: 'September', month_10: 'Oktober', month_11: 'November', month_12: 'Dezember',
 
   // Language
   language: 'Sprache',

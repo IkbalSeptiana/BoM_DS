@@ -94,9 +94,13 @@ export default {
   packs_word: 'パック',
 
   history: '履歴',
+  historyMonthYear: '{1}年{0}',
   currentEvent: '現在のイベント',
   noHistory: '履歴なし',
   backToCurrent: '戻る',
+  month_1: '1月', month_2: '2月', month_3: '3月', month_4: '4月',
+  month_5: '5月', month_6: '6月', month_7: '7月', month_8: '8月',
+  month_9: '9月', month_10: '10月', month_11: '11月', month_12: '12月',
 
   language: '言語',
   footer: '愛を込めて'

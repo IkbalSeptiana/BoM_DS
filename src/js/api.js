@@ -6,11 +6,6 @@ export const SHEET_CONFIG = {
 };
 
 const HISTORY_PATTERN = /^BoM_(\d{2})-(\d{4})$/i;
-const MONTH_NAMES = [
-  'January', 'February', 'March', 'April',
-  'May', 'June', 'July', 'August',
-  'September', 'October', 'November', 'December',
-];
 
 function parseHistorySheet(sheetName) {
   const m = sheetName.match(HISTORY_PATTERN);
@@ -20,7 +15,8 @@ function parseHistorySheet(sheetName) {
   if (monthNum < 1 || monthNum > 12) return null;
   return {
     sheet_name: sheetName,
-    display_name: `${MONTH_NAMES[monthNum - 1]} ${year}`,
+    month: monthNum,
+    year,
     sort_key: `${year}-${String(monthNum).padStart(2, '0')}`,
   };
 }

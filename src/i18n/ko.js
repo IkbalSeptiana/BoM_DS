@@ -107,9 +107,13 @@ export default {
 
   // History
   history: '기록',
+  historyMonthYear: '{1}년 {0}',
   currentEvent: '현재 이벤트',
   noHistory: '아직 기록 없음',
   backToCurrent: '현재로 돌아가기',
+  month_1: '1월', month_2: '2월', month_3: '3월', month_4: '4월',
+  month_5: '5월', month_6: '6월', month_7: '7월', month_8: '8월',
+  month_9: '9월', month_10: '10월', month_11: '11월', month_12: '12월',
 
   // Language
   language: '언어',

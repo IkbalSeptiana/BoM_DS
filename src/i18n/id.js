@@ -107,9 +107,13 @@ export default {
 
   // History
   history: 'Riwayat',
+  historyMonthYear: '{0} {1}',
   currentEvent: 'Event Saat Ini',
   noHistory: 'Belum ada riwayat',
   backToCurrent: 'Kembali ke Saat Ini',
+  month_1: 'Januari', month_2: 'Februari', month_3: 'Maret', month_4: 'April',
+  month_5: 'Mei', month_6: 'Juni', month_7: 'Juli', month_8: 'Agustus',
+  month_9: 'September', month_10: 'Oktober', month_11: 'November', month_12: 'Desember',
 
   // Language
   language: 'Bahasa',

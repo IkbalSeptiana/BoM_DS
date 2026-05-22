@@ -107,9 +107,13 @@ export default {
 
   // History
   history: 'ประวัติ',
+  historyMonthYear: '{0} {1}',
   currentEvent: 'กิจกรรมปัจจุบัน',
   noHistory: 'ยังไม่มีประวัติ',
   backToCurrent: 'กลับไปปัจจุบัน',
+  month_1: 'มกราคม', month_2: 'กุมภาพันธ์', month_3: 'มีนาคม', month_4: 'เมษายน',
+  month_5: 'พฤษภาคม', month_6: 'มิถุนายน', month_7: 'กรกฎาคม', month_8: 'สิงหาคม',
+  month_9: 'กันยายน', month_10: 'ตุลาคม', month_11: 'พฤศจิกายน', month_12: 'ธันวาคม',
 
   // Language
   language: 'ภาษา',

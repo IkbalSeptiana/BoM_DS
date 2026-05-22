@@ -82,7 +82,23 @@ export function processMainData(mainRows) {
   const players = mainRows
     .filter(r => {
       const n = getCol(r, 'Player');
-      return n && n !== 'Player' && n !== 'KEEP FREE' && !n.toLowerCase().includes('total player');
+      
+      // 1. Cek dasar apakah baris nama pemain valid
+      const isValidName = n && n !== 'Player' && n !== 'KEEP FREE' && !n.toLowerCase().includes('total player');
+      if (!isValidName) return false;
+
+      // 2. LOGIKA BARU: Jika Liver aktif, pastikan kolom 'Joined' ada 'x'-nya
+      if (isLiverActive) {
+        // Ambil nilai kolom Joined (otomatis di-trim oleh fungsi getCol) dan ubah ke huruf kecil
+        const joinedVal = getCol(r, 'Joined \n(x)').toLowerCase();
+        
+        // Jika tidak ada huruf 'x', buang pemain ini dari daftar web
+        if (joinedVal !== 'x') {
+          return false; 
+        }
+      }
+
+      return true;
     })
     .map(r => {
       const n = getCol(r, 'Player');

@@ -60,6 +60,7 @@ function openReportModal() {
   document.getElementById('reportForm').reset();
   document.getElementById('reportForm').style.display = '';
   document.getElementById('reportSuccess').style.display = 'none';
+  document.getElementById('reportError').style.display = 'none';
   document.getElementById('reasonCount').textContent = '0';
   updateReportLabels();
 }
@@ -89,6 +90,17 @@ function updateReportLabels() {
       }
     }
   });
+}
+
+function showReportError(msg) {
+  const el = document.getElementById('reportError');
+  document.getElementById('reportErrorText').textContent = msg;
+  el.style.display = 'flex';
+  el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function hideReportError() {
+  document.getElementById('reportError').style.display = 'none';
 }
 
 function checkDuplicateBanId(suspectId) {
@@ -134,9 +146,11 @@ async function submitReport(e) {
     reason: document.getElementById('reportReason').value.trim()
   };
 
+  hideReportError();
+
   try {
     if (checkDuplicateBanId(formData.suspectId)) {
-      alert(t('duplicateIdError'));
+      showReportError(t('duplicateIdError'));
       submitBtn.classList.remove('loading');
       submitBtn.disabled = false;
       return;
@@ -155,10 +169,10 @@ async function submitReport(e) {
       document.getElementById('reportForm').style.display = 'none';
       document.getElementById('reportSuccess').style.display = '';
     } else {
-      alert(t('reportError'));
+      showReportError(t('reportError'));
     }
   } catch (err) {
-    alert(t('reportError'));
+    showReportError(t('reportError'));
   } finally {
     submitBtn.classList.remove('loading');
     submitBtn.disabled = false;

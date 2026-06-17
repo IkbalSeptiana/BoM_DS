@@ -7,6 +7,7 @@ export const state = {
   sortState: { col: null, asc: true },
   activeFilter: 'all',
   bannedCount: 0,
+  bannedIds: new Set(),
   isLiverActive: false,
   cdLeft: AUTO_S,
   cdTimer: null,

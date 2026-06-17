@@ -165,17 +165,37 @@ async function submitReport(e) {
     const result = await response.json();
 
     if (result.status === 'success') {
-      addBannedId(formData.suspectId, formData.suspectName, formData.reporterAlliance, formData.reason);
+      // Optimistically add the ID immediately so duplicate check works right away
+      state.bannedIds.add(formData.suspectId);
+      state.bannedCount++;
+      document.getElementById('s-banned').textContent = state.bannedCount;
       document.getElementById('reportForm').style.display = 'none';
       document.getElementById('reportSuccess').style.display = '';
+      // Refetch ban list in background to fully sync
+      fetchBanData();
     } else {
-      showReportError(t('reportError'));
+      showReportError(result.message || result.details || t('reportError'));
     }
   } catch (err) {
-    showReportError(t('reportError'));
+    showReportError('Network error: ' + err.message);
   } finally {
     submitBtn.classList.remove('loading');
     submitBtn.disabled = false;
+  }
+}
+
+async function fetchBanData() {
+  try {
+    const banSheet = state.banSheet ? state.banSheet.sheet_name : 'BanList';
+    const banCSV = await fetchSheetCSV(banSheet);
+    const banRes = await parseCSV(banCSV);
+    const { banMap, bannedIds, bannedCount } = processBanData(banRes.data);
+    state.bannedCount = bannedCount;
+    state.bannedIds = bannedIds;
+    renderBanTable(banMap);
+    updateStats();
+  } catch (err) {
+    console.error('Failed to refetch ban list:', err);
   }
 }
 

@@ -18,6 +18,7 @@ export function getCol(row, key) {
 
 export function processBanData(banRows) {
   const banMap = new Map();
+  const bannedIds = new Set();
   let countWithoutId = 0;
 
   banRows.forEach(r => {
@@ -27,6 +28,7 @@ export function processBanData(banRows) {
     const allianceRaw = getCol(r, 'Alliance') || '-';
 
     if (pid !== '') {
+      bannedIds.add(pid);
       if (banMap.has(pid)) {
         const existing = banMap.get(pid);
         if (pName && !existing.player.split(' / ').includes(pName)) {
@@ -46,7 +48,7 @@ export function processBanData(banRows) {
     }
   });
 
-  return { banMap, bannedCount: banMap.size + countWithoutId };
+  return { banMap, bannedIds, bannedCount: banMap.size + countWithoutId };
 }
 
 export function processMainData(mainRows) {

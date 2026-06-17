@@ -51,6 +51,94 @@ function closeBanOutside(e) {
   if (e.target === document.getElementById('banModal')) toggleBanModal();
 }
 
+/* ── Report Modal ── */
+function openReportModal() {
+  const modal = document.getElementById('reportModal');
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  // Reset form
+  document.getElementById('reportForm').reset();
+  document.getElementById('reportForm').style.display = '';
+  document.getElementById('reportSuccess').style.display = 'none';
+  document.getElementById('reasonCount').textContent = '0';
+  updateReportLabels();
+}
+
+function closeReportModal() {
+  const modal = document.getElementById('reportModal');
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeReportOutside(e) {
+  if (e.target === document.getElementById('reportModal')) closeReportModal();
+}
+
+function updateReportLabels() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (key.startsWith('label') || key.startsWith('hint') || key === 'reportTitle' || key === 'reportSubtitle' ||
+        key === 'reporterInfo' || key === 'suspectInfo' || key === 'reasonInfo' ||
+        key === 'cancel' || key === 'submitReport' || key === 'close' ||
+        key === 'reportSuccessTitle' || key === 'reportSuccessText' || key === 'characters' || key === 'reportNote') {
+      const val = t(key);
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+        el.placeholder = val;
+      } else {
+        el.textContent = val;
+      }
+    }
+  });
+}
+
+async function submitReport(e) {
+  e.preventDefault();
+  const submitBtn = document.getElementById('submitBtn');
+  submitBtn.classList.add('loading');
+  submitBtn.disabled = true;
+
+  const formData = {
+    reporterId: document.getElementById('reporterId').value.trim(),
+    reporterName: document.getElementById('reporterName').value.trim(),
+    reporterAlliance: document.getElementById('reporterAlliance').value.trim().toUpperCase(),
+    suspectId: document.getElementById('suspectId').value.trim(),
+    suspectName: document.getElementById('suspectName').value.trim(),
+    reason: document.getElementById('reportReason').value.trim()
+  };
+
+  try {
+    const response = await fetch('/api/report', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    });
+
+    const result = await response.json();
+
+    if (result.status === 'success') {
+      document.getElementById('reportForm').style.display = 'none';
+      document.getElementById('reportSuccess').style.display = '';
+    } else {
+      alert(t('reportError'));
+    }
+  } catch (err) {
+    alert(t('reportError'));
+  } finally {
+    submitBtn.classList.remove('loading');
+    submitBtn.disabled = false;
+  }
+}
+
+function setupCharCounter() {
+  const textarea = document.getElementById('reportReason');
+  const counter = document.getElementById('reasonCount');
+  if (textarea && counter) {
+    textarea.addEventListener('input', () => {
+      counter.textContent = textarea.value.length;
+    });
+  }
+}
+
 /* ── Filters ── */
 function applyFilters() {
   const q = document.getElementById('searchInput').value.toLowerCase();
@@ -301,11 +389,16 @@ export async function init() {
   window.fetchData = fetchData;
   window.handleSearchInput = handleSearchInput;
   window.scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.openReportModal = openReportModal;
+  window.closeReportModal = closeReportModal;
+  window.closeReportOutside = closeReportOutside;
+  window.submitReport = submitReport;
 
   // Apply language
   applyAll();
   buildLangSwitcher();
   setupBackToTop();
+  setupCharCounter();
 
   // Load sheet config
   state.currentSheet = SHEET_CONFIG.current;

@@ -120,4 +120,30 @@ export default {
 
   // Footer
   footer: 'สร้างด้วยความรัก',
+
+  // Report Form
+  reportBtn: 'รายงาน',
+  reportTitle: 'ส่งรายงาน',
+  reportSubtitle: 'รายงานผู้เล่นที่ละเมิดกฎ',
+  reporterInfo: 'ข้อมูลของคุณ',
+  suspectInfo: 'ข้อมูลผู้ต้องสงสัย',
+  reasonInfo: 'เหตุผล',
+  labelReporterId: 'ID ผู้เล่นของคุณ',
+  labelReporterName: 'ชื่อผู้เล่นของคุณ',
+  labelReporterAlliance: 'รหัสพันธมิตรของคุณ',
+  labelSuspectId: 'ID ผู้ต้องสงสัย',
+  labelSuspectName: 'ชื่อผู้ต้องสงสัย',
+  hintReporterId: 'จำเป็น - 10 หลัก',
+  hintReporterName: 'จำเป็น',
+  hintReporterAlliance: '3-4 ตัวอักษร',
+  hintSuspectId: 'จำเป็น - 10 หลัก',
+  hintSuspectName: 'จำเป็น',
+  characters: 'ตัวอักษร',
+  cancel: 'ยกเลิก',
+  submitReport: 'ส่งรายงาน',
+  close: 'ปิด',
+  reportSuccessTitle: 'ส่งรายงานสำเร็จ!',
+  reportSuccessText: 'ขอบคุณที่ช่วยรักษาความปลอดภัยของชุมชน เราจะตรวจสอบรายงานของคุณ',
+  reportError: 'ส่งรายงานล้มเหลว กรุณาลองใหม่',
+  reportNote: 'รายงานของคุณจะถูกบันทึกและแสดงต่อสาธารณะในรายการแบน โปรดตรวจสอบให้แน่ใจว่าข้อมูลทั้งหมดถูกต้อง รายงานเท็จอาจส่งผลให้คุณถูกเพิ่มในรายการแบน',
 };

@@ -120,4 +120,30 @@ export default {
 
   // Footer
   footer: 'dibuat dengan cinta',
+
+  // Report Form
+  reportBtn: 'Laporkan',
+  reportTitle: 'Kirim Laporan',
+  reportSubtitle: 'Laporkan pemain yang melanggar aturan',
+  reporterInfo: 'Informasi Anda',
+  suspectInfo: 'Informasi Terduga',
+  reasonInfo: 'Alasan',
+  labelReporterId: 'ID Pemain Anda',
+  labelReporterName: 'Nama Pemain Anda',
+  labelReporterAlliance: 'Kode Aliansi Anda',
+  labelSuspectId: 'ID Pemain Terduga',
+  labelSuspectName: 'Nama Pemain Terduga',
+  hintReporterId: 'Wajib - 10 digit angka',
+  hintReporterName: 'Wajib',
+  hintReporterAlliance: '3-4 karakter',
+  hintSuspectId: 'Wajib - 10 digit angka',
+  hintSuspectName: 'Wajib',
+  characters: 'karakter',
+  cancel: 'Batal',
+  submitReport: 'Kirim Laporan',
+  close: 'Tutup',
+  reportSuccessTitle: 'Laporan Terkirim!',
+  reportSuccessText: 'Terima kasih telah membantu menjaga keamanan komunitas kami. Kami akan meninjau laporan Anda.',
+  reportError: 'Gagal mengirim laporan. Silakan coba lagi.',
+  reportNote: 'Laporan Anda akan direkam dan ditampilkan secara publik di Daftar Ban. Pastikan semua informasi akurat. Laporan palsu dapat mengakibatkan Anda ditambahkan ke Daftar Ban.',
 };

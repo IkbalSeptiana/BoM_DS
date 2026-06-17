@@ -120,4 +120,30 @@ export default {
 
   // Footer
   footer: 'tạo bằng tình yêu',
+
+  // Report Form
+  reportBtn: 'Báo cáo',
+  reportTitle: 'Gửi báo cáo',
+  reportSubtitle: 'Báo cáo người chơi vi phạm quy tắc',
+  reporterInfo: 'Thông tin của bạn',
+  suspectInfo: 'Thông tin người bị tố',
+  reasonInfo: 'Lý do',
+  labelReporterId: 'ID người chơi của bạn',
+  labelReporterName: 'Tên người chơi của bạn',
+  labelReporterAlliance: 'Mã liên minh của bạn',
+  labelSuspectId: 'ID người bị tố',
+  labelSuspectName: 'Tên người bị tố',
+  hintReporterId: 'Bắt buộc - 10 chữ số',
+  hintReporterName: 'Bắt buộc',
+  hintReporterAlliance: '3-4 ký tự',
+  hintSuspectId: 'Bắt buộc - 10 chữ số',
+  hintSuspectName: 'Bắt buộc',
+  characters: 'ký tự',
+  cancel: 'Hủy',
+  submitReport: 'Gửi báo cáo',
+  close: 'Đóng',
+  reportSuccessTitle: 'Đã gửi báo cáo!',
+  reportSuccessText: 'Cảm ơn bạn đã giúp giữ an toàn cho cộng đồng. Chúng tôi sẽ xem xét báo cáo của bạn.',
+  reportError: 'Gửi báo cáo thất bại. Vui lòng thử lại.',
+  reportNote: 'Báo cáo của bạn sẽ được ghi lại và hiển thị công khai trong Danh sách cấm. Hãy đảm bảo tất cả thông tin chính xác. Báo cáo sai sự thật có thể dẫn đến việc bạn bị thêm vào danh sách.',
 };

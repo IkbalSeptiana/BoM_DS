@@ -120,4 +120,30 @@ export default {
 
   // Footer
   footer: 'mit Liebe gemacht',
+
+  // Report Form
+  reportBtn: 'Melden',
+  reportTitle: 'Meldung einreichen',
+  reportSubtitle: 'Melde einen Spieler, der gegen die Regeln verstoßen hat',
+  reporterInfo: 'Deine Informationen',
+  suspectInfo: 'Verdächtigen Informationen',
+  reasonInfo: 'Grund',
+  labelReporterId: 'Deine Spieler-ID',
+  labelReporterName: 'Dein Spielername',
+  labelReporterAlliance: 'Dein Allianz-Code',
+  labelSuspectId: 'Spieler-ID des Verdächtigen',
+  labelSuspectName: 'Name des Verdächtigen',
+  hintReporterId: 'Erforderlich - 10 Ziffern',
+  hintReporterName: 'Erforderlich',
+  hintReporterAlliance: '3-4 Zeichen',
+  hintSuspectId: 'Erforderlich - 10 Ziffern',
+  hintSuspectName: 'Erforderlich',
+  characters: 'Zeichen',
+  cancel: 'Abbrechen',
+  submitReport: 'Meldung einreichen',
+  close: 'Schließen',
+  reportSuccessTitle: 'Meldung eingereicht!',
+  reportSuccessText: 'Danke für deine Hilfe, unsere Community sicher zu halten. Wir werden deine Meldung prüfen.',
+  reportError: 'Einreichen fehlgeschlagen. Bitte versuche es erneut.',
+  reportNote: 'Deine Meldung wird aufgezeichnet und öffentlich in der Bannliste angezeigt. Bitte stelle sicher, dass alle Informationen korrekt sind. Falsche Meldungen können dazu führen, dass du selbst zur Bannliste hinzugefügt wirst.',
 };

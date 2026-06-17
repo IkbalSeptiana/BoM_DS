@@ -120,4 +120,30 @@ export default {
 
   // Footer
   footer: 'fait avec amour',
+
+  // Report Form
+  reportBtn: 'Signaler',
+  reportTitle: 'Soumettre un signalement',
+  reportSubtitle: 'Signalez un joueur qui a enfreint les règles',
+  reporterInfo: 'Vos informations',
+  suspectInfo: 'Informations du suspect',
+  reasonInfo: 'Raison',
+  labelReporterId: 'Votre ID joueur',
+  labelReporterName: 'Votre nom de joueur',
+  labelReporterAlliance: 'Votre code d\'alliance',
+  labelSuspectId: 'ID du suspect',
+  labelSuspectName: 'Nom du suspect',
+  hintReporterId: 'Requis - 10 chiffres',
+  hintReporterName: 'Requis',
+  hintReporterAlliance: '3-4 caractères',
+  hintSuspectId: 'Requis - 10 chiffres',
+  hintSuspectName: 'Requis',
+  characters: 'caractères',
+  cancel: 'Annuler',
+  submitReport: 'Envoyer le signalement',
+  close: 'Fermer',
+  reportSuccessTitle: 'Signalement envoyé !',
+  reportSuccessText: 'Merci de nous aider à garder notre communauté sûre. Nous examinerons votre signalement.',
+  reportError: 'Échec de l\'envoi. Veuillez réessayer.',
+  reportNote: 'Votre signalement sera enregistré et affiché publiquement dans la Liste de bannis. Assurez-vous que toutes les informations sont exactes. Les faux signalements peuvent entraîner votre propre ajout à la liste.',
 };

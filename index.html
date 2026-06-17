@@ -117,7 +117,15 @@
         <div class="corner c-bl"></div><div class="corner c-br"></div>
         <div class="modal-scroll">
             <button class="modal-close" onclick="toggleBanModal()">&#x2715;</button>
-            <div class="modal-title" style="color:var(--red)" data-i18n="banTitle">Ban List</div>
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap">
+                <div class="modal-title" style="color:var(--red);margin-bottom:0" data-i18n="banTitle">Ban List</div>
+                <button class="report-btn" onclick="openReportModal()">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                    </svg>
+                    <span data-i18n="reportBtn">Report</span>
+                </button>
+            </div>
             <div style="overflow-x:auto; overflow-y:auto; max-height: 70vh;">
                 <table class="main-table">
                     <thead>
@@ -133,6 +141,118 @@
                         <tr class="nodata"><td colspan="5">FETCHING BAN LIST...</td></tr>
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Report Modal -->
+<div class="modal-overlay" id="reportModal" onclick="closeReportOutside(event)">
+    <div class="modal-box report-modal-box">
+        <div class="corner c-tl"></div><div class="corner c-tr"></div>
+        <div class="corner c-bl"></div><div class="corner c-br"></div>
+        <div class="modal-scroll">
+            <button class="modal-close" onclick="closeReportModal()">&#x2715;</button>
+            <div class="modal-title report-title" data-i18n="reportTitle">Submit a Report</div>
+            <p class="report-subtitle" data-i18n="reportSubtitle">Report a player who violated the rules</p>
+
+            <form id="reportForm" onsubmit="submitReport(event)">
+                <!-- Reporter Section -->
+                <div class="report-section">
+                    <div class="report-section-icon">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                        </svg>
+                    </div>
+                    <div class="report-section-title" data-i18n="reporterInfo">Your Information</div>
+                </div>
+
+                <div class="report-grid">
+                    <div class="form-group">
+                        <label for="reporterId" data-i18n="labelReporterId">Your Player ID</label>
+                        <input type="text" id="reporterId" name="reporterId" required pattern="[0-9]{10}" minlength="10" maxlength="10" placeholder="1828211020" class="form-input">
+                        <span class="form-hint" data-i18n="hintReporterId">Required - 10 digits only</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="reporterName" data-i18n="labelReporterName">Your Player Name</label>
+                        <input type="text" id="reporterName" name="reporterName" required placeholder="ᴮᵒᴹNØX" class="form-input">
+                        <span class="form-hint" data-i18n="hintReporterName">Required</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="reporterAlliance" data-i18n="labelReporterAlliance">Your Alliance Code</label>
+                        <input type="text" id="reporterAlliance" name="reporterAlliance" required placeholder="_BoM" minlength="3" maxlength="4" class="form-input" style="text-transform:uppercase">
+                        <span class="form-hint" data-i18n="hintReporterAlliance">3-4 characters</span>
+                    </div>
+                </div>
+
+                <!-- Suspect Section -->
+                <div class="report-section report-section-suspect">
+                    <div class="report-section-icon report-section-icon-suspect">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/>
+                        </svg>
+                    </div>
+                    <div class="report-section-title" style="color:var(--red)" data-i18n="suspectInfo">Suspect Information</div>
+                </div>
+
+                <div class="report-grid">
+                    <div class="form-group">
+                        <label for="suspectId" data-i18n="labelSuspectId">Suspect Player ID</label>
+                        <input type="text" id="suspectId" name="suspectId" required pattern="[0-9]{10}" minlength="10" maxlength="10" placeholder="0123456789" class="form-input form-input-suspect">
+                        <span class="form-hint" data-i18n="hintSuspectId">Required - 10 digits only</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="suspectName" data-i18n="labelSuspectName">Suspect Player Name</label>
+                        <input type="text" id="suspectName" name="suspectName" required placeholder="SuspectName" class="form-input form-input-suspect">
+                        <span class="form-hint" data-i18n="hintSuspectName">Required</span>
+                    </div>
+                </div>
+
+                <!-- Reason Section -->
+                <div class="report-section" style="margin-top:20px">
+                    <div class="report-section-icon">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/>
+                        </svg>
+                    </div>
+                    <div class="report-section-title" data-i18n="reasonInfo">Reason</div>
+                </div>
+
+                <div class="form-group" style="margin-top:8px">
+                    <textarea id="reportReason" name="reportReason" required placeholder="e.g. _BoM DS 1 pack - Not buy packs" class="form-textarea" rows="2" maxlength="50"></textarea>
+                    <span class="form-hint"><span id="reasonCount">0</span>/50 <span data-i18n="characters">characters</span></span>
+                </div>
+
+                <!-- Accountability Note -->
+                <div class="report-note">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span data-i18n="reportNote">Your report will be recorded and displayed publicly in the Ban List. Please ensure all information is accurate. False reports may result in your own addition to the Ban List.</span>
+                </div>
+
+                <!-- Submit -->
+                <div class="form-actions">
+                    <button type="button" class="form-btn form-btn-cancel" onclick="closeReportModal()" data-i18n="cancel">Cancel</button>
+                    <button type="submit" class="form-btn form-btn-submit" id="submitBtn">
+                        <svg class="btn-spinner" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                        </svg>
+                        <span data-i18n="submitReport">Submit Report</span>
+                    </button>
+                </div>
+            </form>
+
+            <!-- Success State -->
+            <div id="reportSuccess" class="report-success" style="display:none">
+                <div class="success-icon">
+                    <svg width="48" height="48" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+                <div class="success-title" data-i18n="reportSuccessTitle">Report Submitted!</div>
+                <p class="success-text" data-i18n="reportSuccessText">Thank you for helping keep our community safe. We will review your report.</p>
+                <button class="form-btn form-btn-submit" onclick="closeReportModal()" data-i18n="close">Close</button>
             </div>
         </div>
     </div>

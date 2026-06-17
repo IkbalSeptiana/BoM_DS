@@ -120,4 +120,30 @@ export default {
 
   // Footer
   footer: 'made with love',
+
+  // Report Form
+  reportBtn: 'Report',
+  reportTitle: 'Submit a Report',
+  reportSubtitle: 'Report a player who violated the rules',
+  reporterInfo: 'Your Information',
+  suspectInfo: 'Suspect Information',
+  reasonInfo: 'Reason',
+  labelReporterId: 'Your Player ID',
+  labelReporterName: 'Your Player Name',
+  labelReporterAlliance: 'Your Alliance Code',
+  labelSuspectId: 'Suspect Player ID',
+  labelSuspectName: 'Suspect Player Name',
+  hintReporterId: 'Required - 10 digits only',
+  hintReporterName: 'Required',
+  hintReporterAlliance: '3-4 characters',
+  hintSuspectId: 'Required - 10 digits only',
+  hintSuspectName: 'Required',
+  characters: 'characters',
+  cancel: 'Cancel',
+  submitReport: 'Submit Report',
+  close: 'Close',
+  reportSuccessTitle: 'Report Submitted!',
+  reportSuccessText: 'Thank you for helping keep our community safe. We will review your report.',
+  reportError: 'Failed to submit report. Please try again.',
+  reportNote: 'Your report will be recorded and displayed publicly in the Ban List. Please ensure all information is accurate. False reports may result in your own addition to the Ban List.',
 };

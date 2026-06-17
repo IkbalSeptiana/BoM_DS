@@ -120,4 +120,30 @@ export default {
 
   // Footer
   footer: '用爱制作',
+
+  // Report Form
+  reportBtn: '举报',
+  reportTitle: '提交举报',
+  reportSubtitle: '举报违反规则的玩家',
+  reporterInfo: '您的信息',
+  suspectInfo: '嫌疑人信息',
+  reasonInfo: '原因',
+  labelReporterId: '您的玩家ID',
+  labelReporterName: '您的玩家名称',
+  labelReporterAlliance: '您的联盟代码',
+  labelSuspectId: '嫌疑人玩家ID',
+  labelSuspectName: '嫌疑人名称',
+  hintReporterId: '必填 - 10位数字',
+  hintReporterName: '必填',
+  hintReporterAlliance: '3-4个字符',
+  hintSuspectId: '必填 - 10位数字',
+  hintSuspectName: '必填',
+  characters: '字符',
+  cancel: '取消',
+  submitReport: '提交举报',
+  close: '关闭',
+  reportSuccessTitle: '举报已提交！',
+  reportSuccessText: '感谢您帮助维护社区安全。我们将审核您的举报。',
+  reportError: '提交失败，请重试。',
+  reportNote: '您的举报将被记录并公开显示在封禁列表中。请确保所有信息准确。虚假举报可能导致您自己被添加到封禁列表。',
 };

@@ -120,4 +120,30 @@ export default {
 
   // Footer
   footer: 'hecho con amor',
+
+  // Report Form
+  reportBtn: 'Reportar',
+  reportTitle: 'Enviar Reporte',
+  reportSubtitle: 'Reporta un jugador que violó las reglas',
+  reporterInfo: 'Tu Información',
+  suspectInfo: 'Información del Sospechoso',
+  reasonInfo: 'Razón',
+  labelReporterId: 'Tu ID de Jugador',
+  labelReporterName: 'Tu Nombre de Jugador',
+  labelReporterAlliance: 'Tu Código de Alianza',
+  labelSuspectId: 'ID del Sospechoso',
+  labelSuspectName: 'Nombre del Sospechoso',
+  hintReporterId: 'Requerido - 10 dígitos',
+  hintReporterName: 'Requerido',
+  hintReporterAlliance: '3-4 caracteres',
+  hintSuspectId: 'Requerido - 10 dígitos',
+  hintSuspectName: 'Requerido',
+  characters: 'caracteres',
+  cancel: 'Cancelar',
+  submitReport: 'Enviar Reporte',
+  close: 'Cerrar',
+  reportSuccessTitle: '¡Reporte Enviado!',
+  reportSuccessText: 'Gracias por ayudar a mantener segura nuestra comunidad. Revisaremos tu reporte.',
+  reportError: 'Error al enviar el reporte. Por favor intenta de nuevo.',
+  reportNote: 'Tu reporte será registrado y mostrado públicamente en la Lista de Baneados. Asegúrate de que toda la información sea precisa. Reportes falsos pueden resultar en tu propia inclusión en la lista.',
 };

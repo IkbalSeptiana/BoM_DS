@@ -103,5 +103,31 @@ export default {
   month_9: '9月', month_10: '10月', month_11: '11月', month_12: '12月',
 
   language: '言語',
-  footer: '愛を込めて'
+  footer: '愛を込めて',
+
+  // Report Form
+  reportBtn: '報告',
+  reportTitle: '報告を送信',
+  reportSubtitle: 'ルール違反者を報告',
+  reporterInfo: 'あなたの情報',
+  suspectInfo: '容疑者情報',
+  reasonInfo: '理由',
+  labelReporterId: 'あなたのプレイヤーID',
+  labelReporterName: 'あなたのプレイヤー名',
+  labelReporterAlliance: 'あなたの同盟コード',
+  labelSuspectId: '容疑者のID',
+  labelSuspectName: '容疑者の名前',
+  hintReporterId: '必須 - 10桁の数字',
+  hintReporterName: '必須',
+  hintReporterAlliance: '3-4文字',
+  hintSuspectId: '必須 - 10桁の数字',
+  hintSuspectName: '必須',
+  characters: '文字',
+  cancel: 'キャンセル',
+  submitReport: '報告を送信',
+  close: '閉じる',
+  reportSuccessTitle: '報告送信完了！',
+  reportSuccessText: 'コミュニティの安全維持にご協力ありがとうございます。報告を確認します。',
+  reportError: '送信に失敗しました。もう一度お試しください。',
+  reportNote: 'あなたの報告は記録され、BANリストに公開されます。すべての情報が正確であることを確認してください。虚偽の報告はあなた自身がBANリストに追加される可能性があります。',
 };

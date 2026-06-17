@@ -120,4 +120,30 @@ export default {
 
   // Footer
   footer: '사랑으로 제작',
+
+  // Report Form
+  reportBtn: '신고',
+  reportTitle: '신고 제출',
+  reportSubtitle: '규칙을 위반한 플레이어 신고',
+  reporterInfo: '귀하의 정보',
+  suspectInfo: '용의자 정보',
+  reasonInfo: '사유',
+  labelReporterId: '귀하의 플레이어 ID',
+  labelReporterName: '귀하의 플레이어 이름',
+  labelReporterAlliance: '귀하의 동맹 코드',
+  labelSuspectId: '용의자 플레이어 ID',
+  labelSuspectName: '용의자 이름',
+  hintReporterId: '필수 - 10자리 숫자',
+  hintReporterName: '필수',
+  hintReporterAlliance: '3-4자',
+  hintSuspectId: '필수 - 10자리 숫자',
+  hintSuspectName: '필수',
+  characters: '자',
+  cancel: '취소',
+  submitReport: '신고 제출',
+  close: '닫기',
+  reportSuccessTitle: '신고 접수 완료!',
+  reportSuccessText: '커뮤니티 안전을 도와주셔서 감사합니다. 신고를 검토하겠습니다.',
+  reportError: '제출 실패. 다시 시도해주세요.',
+  reportNote: '신고는 기록되어 차단 목록에 공개됩니다. 모든 정보가 정확한지 확인하세요. 허위 신고는 본인이 차단 목록에 추가될 수 있습니다.',
 };

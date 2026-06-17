@@ -120,4 +120,30 @@ export default {
 
   // Footer
   footer: 'сделано с любовью',
+
+  // Report Form
+  reportBtn: 'Пожаловаться',
+  reportTitle: 'Подать жалобу',
+  reportSubtitle: 'Сообщите о нарушителе правил',
+  reporterInfo: 'Ваши данные',
+  suspectInfo: 'Данные нарушителя',
+  reasonInfo: 'Причина',
+  labelReporterId: 'Ваш ID игрока',
+  labelReporterName: 'Ваше имя игрока',
+  labelReporterAlliance: 'Код вашего альянса',
+  labelSuspectId: 'ID нарушителя',
+  labelSuspectName: 'Имя нарушителя',
+  hintReporterId: 'Обязательно - 10 цифр',
+  hintReporterName: 'Обязательно',
+  hintReporterAlliance: '3-4 символа',
+  hintSuspectId: 'Обязательно - 10 цифр',
+  hintSuspectName: 'Обязательно',
+  characters: 'символов',
+  cancel: 'Отмена',
+  submitReport: 'Отправить жалобу',
+  close: 'Закрыть',
+  reportSuccessTitle: 'Жалоба отправлена!',
+  reportSuccessText: 'Спасибо за помощь в безопасности сообщества. Мы рассмотрим вашу жалобу.',
+  reportError: 'Ошибка отправки. Попробуйте снова.',
+  reportNote: 'Ваша жалоба будет записана и отображена публично в Списке банов. Убедитесь, что вся информация точна. Ложные жалобы могут привести к вашему добавлению в Список банов.',
 };

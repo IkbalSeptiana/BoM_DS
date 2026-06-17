@@ -100,7 +100,7 @@ async function submitReport(e) {
   const formData = {
     reporterId: document.getElementById('reporterId').value.trim(),
     reporterName: document.getElementById('reporterName').value.trim(),
-    reporterAlliance: document.getElementById('reporterAlliance').value.trim().toUpperCase(),
+    reporterAlliance: document.getElementById('reporterAlliance').value.trim(),
     suspectId: document.getElementById('suspectId').value.trim(),
     suspectName: document.getElementById('suspectName').value.trim(),
     reason: document.getElementById('reportReason').value.trim()

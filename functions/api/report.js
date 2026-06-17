@@ -13,12 +13,12 @@ export async function onRequestPost(context) {
 
     // Map form data to match the Google Apps Script expected format
     const payload = {
-      idPelapor: formData.reporterId,
-      namaPelapor: formData.reporterName,
-      aliansiPelapor: formData.reporterAlliance,
-      idTerduga: formData.suspectId,
-      namaTerduga: formData.suspectName,
-      alasan: formData.reason
+      reporterId: formData.reporterId,
+      reporterName: formData.reporterName,
+      reporterAlliance: formData.reporterAlliance,
+      suspectId: formData.suspectId,
+      suspectName: formData.suspectName,
+      reason: formData.reason
     };
 
     // Forward to Google Apps Script webhook

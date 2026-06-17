@@ -263,6 +263,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .form-group{display:flex;flex-direction:column;gap:4px}
 .form-group label{font-family:'Rajdhani',sans-serif;font-weight:600;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
 .form-input,.form-textarea{background:rgba(11,17,32,.95);border:1px solid var(--border-dim);border-radius:4px;color:var(--text);font-family:'Rajdhani',sans-serif;font-size:1rem;padding:10px 12px;outline:none;transition:all .2s}
+.form-input:-webkit-autofill,.form-input:-webkit-autofill:hover,.form-input:-webkit-autofill:focus,.form-textarea:-webkit-autofill{-webkit-box-shadow:0 0 0 1000px #0b1120 inset !important;-webkit-text-fill-color:#e2e8f0 !important;caret-color:#e2e8f0;border-color:var(--border-dim)}
 .form-input:focus,.form-textarea:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(56,189,248,.1)}
 .form-input::placeholder,.form-textarea::placeholder{color:var(--muted)}
 .form-input-suspect:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(248,113,113,.1)}

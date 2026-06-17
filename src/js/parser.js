@@ -59,18 +59,30 @@ export function processMainData(mainRows) {
   // Regex untuk mencari format ISO (mengabaikan spasi atau tanda petik tunggal bawaan Sheets)
   const isoRegex = /^\s*'?(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z)\s*$/;
 
-  // Pass 1: detect liver active, map sponsorships, AND extract timestamp
-  mainRows.forEach(r => {
-    // Cari timestamp di setiap sel pada baris ini
-    if (!lastModifiedISO) {
-      for (const key in r) {
-        const val = String(r[key] || '');
-        const match = val.match(isoRegex);
-        if (match) lastModifiedISO = match[1];
+  // 1. Ekstrak timestamp dari SELURUH baris (termasuk baris 183 ke bawah)
+  for (let i = 0; i < mainRows.length; i++) {
+    if (lastModifiedISO) break; // Hentikan pencarian jika timestamp sudah ditemukan
+    for (const key in mainRows[i]) {
+      const val = String(mainRows[i][key] || '');
+      const match = val.match(isoRegex);
+      if (match) {
+        lastModifiedISO = match[1];
+        break;
       }
     }
+  }
 
+  // 2. Batasi data pemain HANYA sampai baris 180 di Google Sheets.
+  // Sheet Baris 1 = Header (dihapus oleh PapaParse)
+  // Sheet Baris 2 = mainRows[0]
+  // Sheet Baris 180 = mainRows[178]
+  // slice(0, 179) akan mengambil index 0 hingga 178.
+  const playerRows = mainRows.slice(0, 179);
+
+  // Pass 1: detect liver active & map sponsorships HANYA dari playerRows
+  playerRows.forEach(r => {
     const n = getCol(r, 'Player');
+    // Pengecekan nama tetap dipertahankan untuk mengabaikan sel kosong atau header nyasar
     if (!n || n === 'Player' || n === 'KEEP FREE' || n.toLowerCase().includes('total player')) return;
 
     const liverData = getCol(r, 'Liver');
@@ -88,21 +100,16 @@ export function processMainData(mainRows) {
     }
   });
 
-  // Pass 2: build player objects
-  const players = mainRows
+  // Pass 2: build player objects HANYA dari playerRows
+  const players = playerRows
     .filter(r => {
       const n = getCol(r, 'Player');
       
-      // 1. Cek dasar apakah baris nama pemain valid
       const isValidName = n && n !== 'Player' && n !== 'KEEP FREE' && !n.toLowerCase().includes('total player');
       if (!isValidName) return false;
 
-      // 2. LOGIKA BARU: Jika Liver aktif, pastikan kolom 'Joined' ada 'x'-nya
       if (isLiverActive) {
-        // Ambil nilai kolom Joined (otomatis di-trim oleh fungsi getCol) dan ubah ke huruf kecil
         const joinedVal = getCol(r, 'Joined \n(x)').toLowerCase();
-        
-        // Jika tidak ada huruf 'x', buang pemain ini dari daftar web
         if (joinedVal !== 'x') {
           return false; 
         }

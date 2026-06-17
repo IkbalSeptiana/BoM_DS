@@ -165,14 +165,10 @@ async function submitReport(e) {
     const result = await response.json();
 
     if (result.status === 'success') {
-      // Optimistically add the ID immediately so duplicate check works right away
-      state.bannedIds.add(formData.suspectId);
-      state.bannedCount++;
-      document.getElementById('s-banned').textContent = state.bannedCount;
+      const commentText = formData.reason + ' (Reported by: ' + formData.reporterName + ' (' + formData.reporterId + '))';
+      addBannedId(formData.suspectId, formData.suspectName, formData.reporterAlliance, commentText);
       document.getElementById('reportForm').style.display = 'none';
       document.getElementById('reportSuccess').style.display = '';
-      // Refetch ban list in background to fully sync
-      fetchBanData();
     } else {
       showReportError(result.message || result.details || t('reportError'));
     }

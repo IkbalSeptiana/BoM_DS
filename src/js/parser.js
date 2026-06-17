@@ -16,13 +16,19 @@ export function getCol(row, key) {
   return k ? (row[k] || '').toString().trim() : '';
 }
 
+function normalizePid(raw) {
+  const s = raw.replace(/^'+/, '').trim();
+  if (/^\d{1,10}$/.test(s)) return s.padStart(10, '0');
+  return s;
+}
+
 export function processBanData(banRows) {
   const banMap = new Map();
   const bannedIds = new Set();
   let countWithoutId = 0;
 
   banRows.forEach(r => {
-    const pid = getCol(r, 'Player ID');
+    const pid = normalizePid(getCol(r, 'Player ID'));
     const pName = getCol(r, 'Player');
     let commentRaw = r['Comment (If the ID is red = duplicate)'] || getCol(r, 'Comment') || '-';
     const allianceRaw = getCol(r, 'Alliance') || '-';

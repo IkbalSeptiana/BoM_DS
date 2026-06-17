@@ -145,5 +145,5 @@ export default {
   reportSuccessTitle: 'Signalement envoyé !',
   reportSuccessText: 'Merci de nous aider à garder notre communauté sûre. Nous examinerons votre signalement.',
   reportError: 'Échec de l\'envoi. Veuillez réessayer.',
-  reportNote: 'Votre signalement sera enregistré et affiché publiquement dans la Liste de bannis. Assurez-vous que toutes les informations sont exactes. Les faux signalements peuvent entraîner votre propre ajout à la liste.',
+  reportNote: 'Votre signalement sera enregistré et affiché publiquement dans la Liste de bannis. Assurez-vous que toutes les informations sont exactes. Les faux signalements peuvent être supprimés de la liste.',
 };

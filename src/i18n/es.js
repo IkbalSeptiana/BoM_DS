@@ -145,5 +145,5 @@ export default {
   reportSuccessTitle: '¡Reporte Enviado!',
   reportSuccessText: 'Gracias por ayudar a mantener segura nuestra comunidad. Revisaremos tu reporte.',
   reportError: 'Error al enviar el reporte. Por favor intenta de nuevo.',
-  reportNote: 'Tu reporte será registrado y mostrado públicamente en la Lista de Baneados. Asegúrate de que toda la información sea precisa. Reportes falsos pueden resultar en tu propia inclusión en la lista.',
+  reportNote: 'Tu reporte será registrado y mostrado públicamente en la Lista de Baneados. Asegúrate de que toda la información sea precisa. Reportes falsos pueden ser eliminados de la lista.',
 };

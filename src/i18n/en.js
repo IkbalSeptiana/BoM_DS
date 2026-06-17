@@ -145,5 +145,5 @@ export default {
   reportSuccessTitle: 'Report Submitted!',
   reportSuccessText: 'Thank you for helping keep our community safe. We will review your report.',
   reportError: 'Failed to submit report. Please try again.',
-  reportNote: 'Your report will be recorded and displayed publicly in the Ban List. Please ensure all information is accurate. False reports may result in your own addition to the Ban List.',
+  reportNote: 'Your report will be recorded and displayed publicly in the Ban List. Please ensure all information is accurate. False reports may be deleted from the Ban List.',
 };

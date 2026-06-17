@@ -145,5 +145,5 @@ export default {
   reportSuccessTitle: 'Laporan Terkirim!',
   reportSuccessText: 'Terima kasih telah membantu menjaga keamanan komunitas kami. Kami akan meninjau laporan Anda.',
   reportError: 'Gagal mengirim laporan. Silakan coba lagi.',
-  reportNote: 'Laporan Anda akan direkam dan ditampilkan secara publik di Daftar Ban. Pastikan semua informasi akurat. Laporan palsu dapat mengakibatkan Anda ditambahkan ke Daftar Ban.',
+  reportNote: 'Laporan Anda akan direkam dan ditampilkan secara publik di Daftar Ban. Pastikan semua informasi akurat. Laporan palsu dapat dihapus dari Daftar Ban.',
 };

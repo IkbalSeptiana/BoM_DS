@@ -145,5 +145,5 @@ export default {
   reportSuccessTitle: '举报已提交！',
   reportSuccessText: '感谢您帮助维护社区安全。我们将审核您的举报。',
   reportError: '提交失败，请重试。',
-  reportNote: '您的举报将被记录并公开显示在封禁列表中。请确保所有信息准确。虚假举报可能导致您自己被添加到封禁列表。',
+  reportNote: '您的举报将被记录并公开显示在封禁列表中。请确保所有信息准确。虚假举报可能会被从封禁列表中删除。',
 };

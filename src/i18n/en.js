@@ -146,4 +146,5 @@ export default {
   reportSuccessText: 'Thank you for helping keep our community safe. We will review your report.',
   reportError: 'Failed to submit report. Please try again.',
   reportNote: 'Your report will be recorded and displayed publicly in the Ban List. Please ensure all information is accurate. False reports may be deleted from the Ban List.',
+  duplicateIdError: 'This Player ID is already in the Ban List. Duplicates are not allowed.',
 };

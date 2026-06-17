@@ -146,4 +146,5 @@ export default {
   reportSuccessText: 'Danke für deine Hilfe, unsere Community sicher zu halten. Wir werden deine Meldung prüfen.',
   reportError: 'Einreichen fehlgeschlagen. Bitte versuche es erneut.',
   reportNote: 'Deine Meldung wird aufgezeichnet und öffentlich in der Bannliste angezeigt. Bitte stelle sicher, dass alle Informationen korrekt sind. Falsche Meldungen können aus der Bannliste gelöscht werden.',
+  duplicateIdError: 'Diese Spieler-ID ist bereits in der Bannliste. Duplikate sind nicht erlaubt.',
 };

@@ -146,4 +146,5 @@ export default {
   reportSuccessText: 'Merci de nous aider à garder notre communauté sûre. Nous examinerons votre signalement.',
   reportError: 'Échec de l\'envoi. Veuillez réessayer.',
   reportNote: 'Votre signalement sera enregistré et affiché publiquement dans la Liste de bannis. Assurez-vous que toutes les informations sont exactes. Les faux signalements peuvent être supprimés de la liste.',
+  duplicateIdError: 'Cet ID de joueur est déjà dans la Liste de bannis. Les doublons ne sont pas autorisés.',
 };

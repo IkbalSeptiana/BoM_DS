@@ -91,6 +91,25 @@ function updateReportLabels() {
   });
 }
 
+function checkDuplicateBanId(suspectId) {
+  return state.bannedIds.has(suspectId);
+}
+
+async function refreshBanList() {
+  try {
+    const banSheet = state.banSheet ? state.banSheet.sheet_name : 'BanList';
+    const banCSV = await fetchSheetCSV(banSheet);
+    const banRes = await parseCSV(banCSV);
+    const { banMap, bannedIds, bannedCount } = processBanData(banRes.data);
+    state.bannedCount = bannedCount;
+    state.bannedIds = bannedIds;
+    renderBanTable(banMap);
+    updateStats();
+  } catch (err) {
+    console.warn('Failed to refresh ban list:', err);
+  }
+}
+
 async function submitReport(e) {
   e.preventDefault();
   const submitBtn = document.getElementById('submitBtn');
@@ -107,6 +126,14 @@ async function submitReport(e) {
   };
 
   try {
+    const isDuplicate = await checkDuplicateBanId(formData.suspectId);
+    if (isDuplicate) {
+      alert(t('duplicateIdError'));
+      submitBtn.classList.remove('loading');
+      submitBtn.disabled = false;
+      return;
+    }
+
     const response = await fetch('/api/report', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -118,6 +145,7 @@ async function submitReport(e) {
     if (result.status === 'success') {
       document.getElementById('reportForm').style.display = 'none';
       document.getElementById('reportSuccess').style.display = '';
+      await refreshBanList();
     } else {
       alert(t('reportError'));
     }
@@ -246,8 +274,9 @@ async function fetchData(spinner = false) {
 
     const [mainRes, banRes] = await Promise.all([parseCSV(mainCSV), parseCSV(banCSV)]);
 
-    const { banMap, bannedCount } = processBanData(banRes.data);
+    const { banMap, bannedIds, bannedCount } = processBanData(banRes.data);
     state.bannedCount = bannedCount;
+    state.bannedIds = bannedIds;
     renderBanTable(banMap);
 
     const { players, isLiverActive, lastModifiedISO } = processMainData(mainRes.data);
@@ -367,6 +396,7 @@ function buildLangSwitcher() {
   });
 }
 
+/* ── API Modal ── */
 /* ── Back to Top ── */
 function setupBackToTop() {
   const btn = document.getElementById('backToTop');

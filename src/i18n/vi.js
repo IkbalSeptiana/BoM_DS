@@ -146,4 +146,5 @@ export default {
   reportSuccessText: 'Cảm ơn bạn đã giúp giữ an toàn cho cộng đồng. Chúng tôi sẽ xem xét báo cáo của bạn.',
   reportError: 'Gửi báo cáo thất bại. Vui lòng thử lại.',
   reportNote: 'Báo cáo của bạn sẽ được ghi lại và hiển thị công khai trong Danh sách cấm. Hãy đảm bảo tất cả thông tin chính xác. Báo cáo sai sự thật có thể bị xóa khỏi danh sách.',
+  duplicateIdError: 'ID người chơi này đã có trong Danh sách cấm. Không cho phép trùng lặp.',
 };

@@ -146,4 +146,5 @@ export default {
   reportSuccessText: '感谢您帮助维护社区安全。我们将审核您的举报。',
   reportError: '提交失败，请重试。',
   reportNote: '您的举报将被记录并公开显示在封禁列表中。请确保所有信息准确。虚假举报可能会被从封禁列表中删除。',
+  duplicateIdError: '该玩家ID已存在于封禁列表中。不允许重复。',
 };

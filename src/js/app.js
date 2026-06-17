@@ -95,19 +95,28 @@ function checkDuplicateBanId(suspectId) {
   return state.bannedIds.has(suspectId);
 }
 
-async function refreshBanList() {
-  try {
-    const banSheet = state.banSheet ? state.banSheet.sheet_name : 'BanList';
-    const banCSV = await fetchSheetCSV(banSheet);
-    const banRes = await parseCSV(banCSV);
-    const { banMap, bannedIds, bannedCount } = processBanData(banRes.data);
-    state.bannedCount = bannedCount;
-    state.bannedIds = bannedIds;
-    renderBanTable(banMap);
-    updateStats();
-  } catch (err) {
-    console.warn('Failed to refresh ban list:', err);
+function addBannedId(suspectId, suspectName, reporterAlliance, reason) {
+  state.bannedIds.add(suspectId);
+  state.bannedCount++;
+
+  const banTbody = document.getElementById('ban-tbody');
+  const newRow = document.createElement('tr');
+  const newIndex = banTbody.querySelectorAll('tr:not(.nodata)').length + 1;
+  newRow.innerHTML = `
+    <td class="row-num">${String(newIndex).padStart(2, '0')}</td>
+    <td class="player-name">${suspectName}</td>
+    <td class="player-id">${suspectId}</td>
+    <td><span class="alliance-tag">${reporterAlliance}</span></td>
+    <td class="comment-note">${reason}</td>
+  `;
+
+  const nodataRow = banTbody.querySelector('.nodata');
+  if (nodataRow) {
+    nodataRow.remove();
   }
+  banTbody.appendChild(newRow);
+
+  document.getElementById('s-banned').textContent = state.bannedCount;
 }
 
 async function submitReport(e) {
@@ -126,8 +135,7 @@ async function submitReport(e) {
   };
 
   try {
-    const isDuplicate = await checkDuplicateBanId(formData.suspectId);
-    if (isDuplicate) {
+    if (checkDuplicateBanId(formData.suspectId)) {
       alert(t('duplicateIdError'));
       submitBtn.classList.remove('loading');
       submitBtn.disabled = false;
@@ -143,9 +151,9 @@ async function submitReport(e) {
     const result = await response.json();
 
     if (result.status === 'success') {
+      addBannedId(formData.suspectId, formData.suspectName, formData.reporterAlliance, formData.reason);
       document.getElementById('reportForm').style.display = 'none';
       document.getElementById('reportSuccess').style.display = '';
-      await refreshBanList();
     } else {
       alert(t('reportError'));
     }
